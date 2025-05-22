@@ -1,3 +1,5 @@
+package Model;
+
 public class Publisher {
 
     private String Name;

@@ -1,3 +1,5 @@
+package Model;
+
 public class Type {
 
     private String Name, Description;

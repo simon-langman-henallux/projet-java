@@ -1,3 +1,5 @@
+package Model;
+
 public class DocumentLine {
 
     private Game Game;

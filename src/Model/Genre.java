@@ -1,3 +1,5 @@
+package Model;
+
 public class Genre {
 
     private String Name, Description;

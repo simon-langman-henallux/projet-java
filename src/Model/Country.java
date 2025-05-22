@@ -1,3 +1,5 @@
+package Model;
+
 public class Country {
 
     private String Name, Currency;

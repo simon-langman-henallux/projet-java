@@ -1,3 +1,5 @@
+package Model;
+
 public class City {
 
     private int ZipCode;
