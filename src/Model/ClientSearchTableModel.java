@@ -11,7 +11,7 @@ public class ClientSearchTableModel extends AbstractTableModel {
     public ClientSearchTableModel(List<ClientSearchResult> results){
         this.results = results;
     }
-    public static void setData(List<ClientSearchResult> results){
+    public void setData(List<ClientSearchResult> results){
         this.results = results;
         fireTableDataChanged();
     }
