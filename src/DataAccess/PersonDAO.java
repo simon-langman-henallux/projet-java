@@ -6,8 +6,8 @@ public class PersonDAO {
         ResultSet resultSet = null;
         try {
             Connection connection = SingletonConnection.getInstance();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.Name AS ClientName, p.FirstName AS ClientFirstName, p.BirthDate AS ClientBirthDate," +
-                    "g.Title AS GameTitle, g.AgeRestriction AS GameAgeRestriction, ge.Name AS GenreName" +
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.Name AS clientName, p.FirstName AS clientFirstName, p.BirthDate AS clientBirthDate," +
+                    "g.Title AS gameTitle, g.AgeRestriction AS gameAgeRestriction, ge.Name AS genreName" +
                     "FROM person p" +
                     "INNER JOIN document d ON d.person = p.id" +
                     "INNER JOIN documentline dl ON dl.Document = d.Reference" +

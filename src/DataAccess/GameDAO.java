@@ -1,15 +1,69 @@
 package DataAccess;
 
 import java.sql.*;
+import java.util.ArrayList;
+import Model.*;
+
+import javax.swing.*;
 
 public class GameDAO {
 
-    public ResultSet ClientAdressByGameSearch(int idGame) {
+    public static Game getGameByData(ResultSet data){
+        Game game = null;
+        try {
+            game = new Game();
+            game.setTitle(data.getString("Title"));
+            game.setPrice(data.getDouble("Price"));
+            game.setReleaseDate(data.getDate("ReleaseDate"));
+            game.setAgeRestriction(data.getInt("AgeRestriction"));
+            game.setMultiplayer(data.getBoolean("IsMultiplayer"));
+
+            String address = data.getString("Address");
+
+            String description = data.getString("Description");
+            if (!data.wasNull()){
+                game.setDescription(description);
+            }
+            Double duration = data.getDouble("Duration");
+            if (!data.wasNull()){
+                game.setDuration(duration);
+            }
+            Platform platform = (Platform) data.getObject("Platform");
+            if (!data.wasNull()){
+                game.setPlatform(platform);
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return game;
+    }
+
+    public static ArrayList<Game> getAll(){
+        ArrayList<Game> games = new ArrayList<>();
+        try {
+            Connection connection = SingletonConnection.getInstance();
+            String sqlInstruction = "SELECT * FROM game";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlInstruction);
+            ResultSet data = preparedStatement.executeQuery();
+            while (data.next()) {
+                Game game = getGameByData(data);
+                games.add(game);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return games;
+    }
+
+
+
+    public static ResultSet ClientAdressByGameSearch(String gameTitle) {
         ResultSet resultSet = null;
         try {
             Connection connection = SingletonConnection.getInstance();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.FirstName AS ClientFistName, p.Name AS ClientName, p.StreetName AS ClientStreetName,"+
-                    "c.ZipCode AS CityZipCode, c.Name AS CityName, cy.Name AS CountryName, cy.Currency AS CountryCurrency" +
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.FirstName AS clientFistName, p.Name AS clientName, p.StreetName AS clientStreetName,"+
+                    "c.ZipCode AS cityZipCode, c.Name AS cityName, cy.Name AS countryName, cy.Currency AS countryCurrency" +
                     "FROM person p" +
                     "INNER JOIN document d ON d.Person = p.id"+
                     "INNER JOIN documentLine dl ON dl.Document = d.Reference" +
@@ -29,7 +83,7 @@ public class GameDAO {
         ResultSet resultSet = null;
         try {
             Connection connection = SingletonConnection.getInstance();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT g.title AS GameTitle, d.CreationDate AS DateBought, dl.Quantity AS QuantityBought, dl.UnitPrice AS UnitPriceBought" +
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT g.title AS gameTitle, d.CreationDate AS dateBought, dl.Quantity AS quantityBought, dl.UnitPrice AS unitPriceBought" +
                     "FROM game g" +
                     "INNER JOIN documentline dl ON dl.Game = g.title" +
                     "INNER JOIN document d ON dl.Document = d.Reference" +
