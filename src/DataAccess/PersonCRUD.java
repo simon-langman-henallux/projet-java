@@ -8,7 +8,7 @@ public class PersonCRUD {
 
     public static void insertPerson(Person person) throws SQLException {
         try (Connection conn = SingletonConnection.getInstance()) {
-            String sql = "INSERT INTO PERSON (Name, FirstName, PhoneNumber, BirthDate, BoxNumber, AccountNumber, StreetName, IsClient, IsSupplier, ZipCodeCity, NameCity, Country) " +
+            String sql = "insert into person (Name, FirstName, PhoneNumber, BirthDate, BoxNumber, AccountNumber, StreetName, IsClient, IsSupplier, ZipCodeCity, NameCity, Country) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, person.getName());
@@ -29,7 +29,7 @@ public class PersonCRUD {
 
     public static void updatePerson(Person person) throws SQLException {
         try (Connection conn = SingletonConnection.getInstance()) {
-            String sql = "UPDATE PERSON SET FirstName=?, PhoneNumber=?, BirthDate=?, BoxNumber=?, AccountNumber=?, StreetName=?, IsClient=?, IsSupplier=?, ZipCodeCity=?, NameCity=?, Country=? WHERE Name=?";
+            String sql = "UPDATE person SET FirstName=?, PhoneNumber=?, BirthDate=?, BoxNumber=?, AccountNumber=?, StreetName=?, IsClient=?, IsSupplier=?, ZipCodeCity=?, NameCity=?, Country=? WHERE Name=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getPhoneNumber());
@@ -49,7 +49,7 @@ public class PersonCRUD {
 
     public static void deletePerson(String name) throws SQLException {
         try (Connection conn = SingletonConnection.getInstance()) {
-            String sql = "DELETE FROM PERSON WHERE Name=?";
+            String sql = "DELETE FROM person WHERE Name=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             ps.executeUpdate();
@@ -59,7 +59,7 @@ public class PersonCRUD {
     public static ArrayList<Person> listPersons() throws SQLException {
         ArrayList<Person> persons = new ArrayList<>();
         try (Connection conn = SingletonConnection.getInstance()) {
-            String sql = "SELECT * FROM PERSON";
+            String sql = "SELECT * FROM person";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

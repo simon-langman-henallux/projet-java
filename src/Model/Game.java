@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Game {
 
-    private String title, Description;
+    private String Title, Description;
     private double Price, Duration;
     private Date ReleaseDate;
     private int AgeRestriction;
@@ -13,8 +13,8 @@ public class Game {
     private Genre Genre;
     private Platform Platform;
 
-    public Game(String title, String Description, double Price, double Duration, Date ReleaseDate, int AgeRestriction, boolean IsMultiplayer, Publisher Publisher, Genre Genre, Platform Platform) {
-        setTitle(title);
+    public Game(String Title, String Description, double Price, double Duration, Date ReleaseDate, int AgeRestriction, boolean IsMultiplayer, Publisher Publisher, Genre Genre, Platform Platform) {
+        setTitle(Title);
         setDescription(Description);
         setPrice(Price);
         setDuration(Duration);
@@ -30,7 +30,7 @@ public class Game {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public void setDescription(String description) {
@@ -70,7 +70,7 @@ public class Game {
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public String getDescription() {

@@ -57,7 +57,7 @@ public class GameCRUD {
 
     public static void deleteGame(Game game) throws SQLException {
         try (Connection con = SingletonConnection.getInstance()){
-            String sql = "DELETE FROM GAME WHERE Title=?";
+            String sql = "DELETE FROM game WHERE Title=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, game.getTitle());
             ps.executeUpdate();
