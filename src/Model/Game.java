@@ -26,7 +26,7 @@ public class Game {
         setPlatform(Platform);
     }
     public Game(){
-        this((String) null, (String) null, 0.0, 0.0, (Date) null, 0, false, (Publisher) null,(Genre) null, (Platform) null);
+        this(null, null, 0.0, 0.0, null, 0, false, null,null, null);
     }
 
     public void setTitle(String title) {
@@ -71,5 +71,41 @@ public class Game {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public double getPrice() {
+        return Price;
+    }
+
+    public double getDuration() {
+        return Duration;
+    }
+
+    public Date getReleaseDate() {
+        return ReleaseDate;
+    }
+
+    public int getAgeRestriction() {
+        return AgeRestriction;
+    }
+
+    public boolean isMultiplayer() {
+        return IsMultiplayer;
+    }
+
+    public Publisher getPublisher() {
+        return Publisher;
+    }
+
+    public Genre getGenre() {
+        return Genre;
+    }
+
+    public Platform getPlatform() {
+        return Platform;
     }
 }

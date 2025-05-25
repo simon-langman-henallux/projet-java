@@ -84,7 +84,7 @@ public class GameDAO {
         try {
             Connection connection = SingletonConnection.getInstance();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT g.title AS gameTitle, d.CreationDate AS dateBought, dl.Quantity AS quantityBought, dl.UnitPrice AS unitPriceBought" +
-                    "FROM game g" +
+                    "FROM GAME g, DOCUMENT d, DOCUMENTLINE dl" +
                     "INNER JOIN documentline dl ON dl.Game = g.title" +
                     "INNER JOIN document d ON dl.Document = d.Reference" +
                     "INNER JOIN person p ON d.Person = p.id" +

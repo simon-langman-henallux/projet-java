@@ -9,4 +9,7 @@ public class Genre {
         this.Description = Description;
     }
 
+    public String getName() {
+        return Name;
+    }
 }

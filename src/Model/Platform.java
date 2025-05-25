@@ -8,4 +8,7 @@ public class Platform {
         Name = name;
     }
 
+    public String getName() {
+        return Name;
+    }
 }

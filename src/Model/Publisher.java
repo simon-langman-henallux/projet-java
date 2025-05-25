@@ -8,4 +8,7 @@ public class Publisher {
         this.Name = Name;
     }
 
+    public String getName() {
+        return Name;
+    }
 }
