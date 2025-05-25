@@ -4,10 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-
 
 public class MainWindow extends JFrame {
     private Container mainContainer;
@@ -18,68 +14,55 @@ public class MainWindow extends JFrame {
     private JMenuItem ageResearchItem, gameResearchItem, byDateResearchItem;
     private JMenuItem newOrderItem;
 
-    public MainWindow(){
+    public MainWindow() {
         super("Gestion Magasin de Jeu Vidéo");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
         setContentPane(mainContainer);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e){
-                System.exit(0);
-            }
-        });
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         menuBar = new JMenuBar();
 
+        // Menu Jeux
         gameMenu = new JMenu("Jeux");
-
         addGameItem = new JMenuItem("Ajouter un jeu");
-        //Ajouter action vers le menu
-        gameMenu.add(addGameItem);
-
         viewGameItem = new JMenuItem("Voir tous les jeux");
-        //Ajouter action vers le menu
+        gameMenu.add(addGameItem);
         gameMenu.add(viewGameItem);
 
+        // Menu Personnes
         personMenu = new JMenu("Personnes");
-
         addPersonItem = new JMenuItem("Ajouter une personne");
-        //Ajouter action vers le menu
-        personMenu.add(addPersonItem);
-
         viewPersonItem = new JMenuItem("Voir toutes les personnes");
-        //Ajouter action vers le menu
+        personMenu.add(addPersonItem);
         personMenu.add(viewPersonItem);
 
+        // Ajout des actions pour le menu Personnes
+        addPersonItem.addActionListener(e -> JOptionPane.showMessageDialog(this, "Ajout de personne non implémenté"));
+        viewPersonItem.addActionListener(e -> new PersonCRUDWindow());
+
+        // Menu Recherches
         researchMenu = new JMenu("Recherches");
-
         ageResearchItem = new JMenuItem("Recherche par âge");
-        //Ajouter action vers le menu
-        researchMenu.add(ageResearchItem);
-
         gameResearchItem = new JMenuItem("Recherche par jeu");
-        //Ajouter action vers le menu
-        researchMenu.add(gameResearchItem);
-
         byDateResearchItem = new JMenuItem("Recherche par date");
-        //Ajouter action vers le menu
+        researchMenu.add(ageResearchItem);
+        researchMenu.add(gameResearchItem);
         researchMenu.add(byDateResearchItem);
 
+        // Menu Commandes
         orderMenu = new JMenu("Commandes");
-
         newOrderItem = new JMenuItem("Créer une nouvelle commande");
-        //Ajouter action vers le menu
         orderMenu.add(newOrderItem);
 
+        // Ajout des menus à la barre de menus
         menuBar.add(gameMenu);
         menuBar.add(personMenu);
         menuBar.add(researchMenu);
         menuBar.add(orderMenu);
-
         setJMenuBar(menuBar);
+
         setVisible(true);
     }
-
-
 }
