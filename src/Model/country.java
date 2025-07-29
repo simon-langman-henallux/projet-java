@@ -2,11 +2,11 @@ package Model;
 
 public class Country {
 
-    private String name, Currency;
+    private String name, currency;
 
-    public Country(String name, String Currency) {
+    public Country(String name, String currency) {
         this.name = name;
-        this.Currency = Currency;
+        this.currency = currency;
     }
 
 }

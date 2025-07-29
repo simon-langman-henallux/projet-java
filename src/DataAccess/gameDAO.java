@@ -62,7 +62,7 @@ public class GameDAO {
             Connection connection = SingletonConnection.getInstance();
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT p.firstName AS clientFirstName, p.name AS clientName, p.streetName AS clientStreetName, " +
-                            "c.ZipCode AS cityZipCode, c.name AS cityName, cy.name AS countryName, cy.Currency AS countryCurrency " +
+                            "c.zipCode AS cityZipCode, c.name AS cityName, cy.name AS countryName, cy.currency AS countryCurrency " +
                             "FROM person p " +
                             "INNER JOIN document d ON d.person = p.id " +
                             "INNER JOIN documentLine dl ON dl.document = d.reference " +
