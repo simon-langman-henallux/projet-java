@@ -1,14 +1,36 @@
 package DataAccess;
 
 import Model.Person;
+
 import java.sql.*;
 import java.util.ArrayList;
 
-public class PersonCRUD {
+public class PersonDAO {
+    public ResultSet GameRestridedSearcbByCountryAndPegi(int idGame) {
+        ResultSet resultSet = null;
+        try {
+            Connection connection = SingletonConnection.getInstance();
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "SELECT p.name AS clientName, p.firstName AS clientFirstName, p.birthDate AS clientBirthDate, " +
+                            "g.title AS gameTitle, g.ageRestriction AS gameAgeRestriction, ge.name AS genreName " +
+                            "FROM person p " +
+                            "INNER JOIN document d ON d.person = p.id " +
+                            "INNER JOIN documentLine dl ON dl.document = d.reference " +
+                            "INNER JOIN game g ON g.title = dl.game " +
+                            "INNER JOIN genre ge ON ge.name = g.Genre " +
+                            "WHERE p.Country = ? AND g.ageRestriction < ? AND p.isClient = 1 " +
+                            "ORDER BY g.ageRestriction ASC"
+            );
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
 
     public static void insertPerson(Person person) throws SQLException {
         try (Connection conn = SingletonConnection.getInstance()) {
-            String sql = "insert into person (Name, FirstName, PhoneNumber, BirthDate, BoxNumber, AccountNumber, StreetName, IsClient, IsSupplier, ZipCodeCity, NameCity, Country) " +
+            String sql = "insert into person (name, firstName, phoneNumber, birthDate, boxNumber, accountNumber, streetName, isClient, isSupplier, zipCodeCity, nameCity, Country) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, person.getName());
@@ -29,7 +51,7 @@ public class PersonCRUD {
 
     public static void updatePerson(Person person) throws SQLException {
         try (Connection conn = SingletonConnection.getInstance()) {
-            String sql = "UPDATE person SET FirstName=?, PhoneNumber=?, BirthDate=?, BoxNumber=?, AccountNumber=?, StreetName=?, IsClient=?, IsSupplier=?, ZipCodeCity=?, NameCity=?, Country=? WHERE Name=?";
+            String sql = "UPDATE person SET firstName=?, phoneNumber=?, birthDate=?, boxNumber=?, accountNumber=?, streetName=?, isClient=?, isSupplier=?, zipCodeCity=?, nameCity=?, Country=? WHERE name=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getPhoneNumber());
@@ -49,7 +71,7 @@ public class PersonCRUD {
 
     public static void deletePerson(String name) throws SQLException {
         try (Connection conn = SingletonConnection.getInstance()) {
-            String sql = "DELETE FROM person WHERE Name=?";
+            String sql = "DELETE FROM person WHERE name=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             ps.executeUpdate();
@@ -65,21 +87,22 @@ public class PersonCRUD {
             while (rs.next()) {
                 Person person = new Person();
                 person.setId(rs.getInt("id"));
-                person.setName(rs.getString("Name"));
-                person.setFirstName(rs.getString("FirstName"));
-                person.setPhoneNumber(rs.getString("PhoneNumber"));
-                person.setBirthDate(rs.getDate("BirthDate"));
-                person.setBoxNumber((Integer) rs.getObject("BoxNumber"));
-                person.setAccountNumber(rs.getString("AccountNumber"));
-                person.setStreetName(rs.getString("StreetName"));
-                person.setClient(rs.getBoolean("IsClient"));
-                person.setSupplier(rs.getBoolean("IsSupplier"));
-                person.setZipCodeCity(rs.getInt("ZipCodeCity"));
-                person.setNameCity(rs.getString("NameCity"));
+                person.setName(rs.getString("name"));
+                person.setFirstName(rs.getString("firstName"));
+                person.setPhoneNumber(rs.getString("phoneNumber"));
+                person.setBirthDate(rs.getDate("birthDate"));
+                person.setBoxNumber((Integer) rs.getObject("boxNumber"));
+                person.setAccountNumber(rs.getString("accountNumber"));
+                person.setStreetName(rs.getString("streetName"));
+                person.setClient(rs.getBoolean("isClient"));
+                person.setSupplier(rs.getBoolean("isSupplier"));
+                person.setZipCodeCity(rs.getInt("zipCodeCity"));
+                person.setNameCity(rs.getString("nameCity"));
                 person.setCountry(rs.getString("Country"));
                 persons.add(person);
             }
         }
         return persons;
     }
+
 }

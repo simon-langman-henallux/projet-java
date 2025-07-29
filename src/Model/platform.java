@@ -2,13 +2,13 @@ package Model;
 
 public class Platform {
 
-    private String Name;
+    private String name;
 
     public Platform(String name) {
-        Name = name;
+        name = name;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 }

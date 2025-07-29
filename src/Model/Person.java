@@ -4,25 +4,25 @@ import java.util.Date;
 
 public class Person {
 
-    private int id, BoxNumber, ZipCodeCity;
-    private String Name, FirstName, PhoneNumber, AccountNumber, StreetName, NameCity, Country;
-    private Date BirthDate;
-    private boolean IsClient, IsSupplier;
+    private int id, boxNumber, zipCodeCity;
+    private String name, firstName, phoneNumber, accountNumber, streetName, nameCity, country;
+    private Date birthDate;
+    private boolean isClient, isSupplier;
 
-    public Person(int id, String Name, String FirstName, String PhoneNumber, Date BirthDate, int BoxNumber, String AccountNumber, String StreetName, boolean IsClient, boolean IsSupplier, int ZipCodeCity, String NameCity, String Country) {
+    public Person(int id, String name, String firstName, String phoneNumber, Date birthDate, int boxNumber, String accountNumber, String streetName, boolean isClient, boolean isSupplier, int zipCodeCity, String nameCity, String country) {
         this.id = id;
-        this.Name = Name;
-        this.FirstName = FirstName;
-        this.PhoneNumber = PhoneNumber;
-        this.BirthDate = BirthDate;
-        this.BoxNumber = BoxNumber;
-        this.AccountNumber = AccountNumber;
-        this.StreetName = StreetName;
-        this.IsClient = IsClient;
-        this.IsSupplier = IsSupplier;
-        this.ZipCodeCity = ZipCodeCity;
-        this.NameCity = NameCity;
-        this.Country = Country;
+        this.name = name;
+        this.firstName = firstName;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
+        this.boxNumber = boxNumber;
+        this.accountNumber = accountNumber;
+        this.streetName = streetName;
+        this.isClient = isClient;
+        this.isSupplier = isSupplier;
+        this.zipCodeCity = zipCodeCity;
+        this.nameCity = nameCity;
+        this.country = country;
     }
 
     public Person() {
@@ -34,98 +34,98 @@ public class Person {
     }
 
     public int getBoxNumber() {
-        return BoxNumber;
+        return boxNumber;
     }
 
     public void setBoxNumber(int boxNumber) {
-        BoxNumber = boxNumber;
+        boxNumber = boxNumber;
     }
 
     public int getZipCodeCity() {
-        return ZipCodeCity;
+        return zipCodeCity;
     }
 
     public void setZipCodeCity(int zipCodeCity) {
-        ZipCodeCity = zipCodeCity;
+        zipCodeCity = zipCodeCity;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        name = name;
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        firstName = firstName;
     }
 
     public String getPhoneNumber() {
-        return PhoneNumber;
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
+        phoneNumber = phoneNumber;
     }
 
     public String getAccountNumber() {
-        return AccountNumber;
+        return accountNumber;
     }
 
     public void setAccountNumber(String accountNumber) {
-        AccountNumber = accountNumber;
+        accountNumber = accountNumber;
     }
 
     public String getStreetName() {
-        return StreetName;
+        return streetName;
     }
 
     public void setStreetName(String streetName) {
-        StreetName = streetName;
+        streetName = streetName;
     }
 
     public String getNameCity() {
-        return NameCity;
+        return nameCity;
     }
 
     public void setNameCity(String nameCity) {
-        NameCity = nameCity;
+        nameCity = nameCity;
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        country = country;
     }
 
     public Date getBirthDate() {
-        return BirthDate;
+        return birthDate;
     }
 
     public void setBirthDate(Date birthDate) {
-        BirthDate = birthDate;
+        birthDate = birthDate;
     }
 
     public boolean isClient() {
-        return IsClient;
+        return isClient;
     }
 
     public void setClient(boolean client) {
-        IsClient = client;
+        isClient = client;
     }
 
     public boolean isSupplier() {
-        return IsSupplier;
+        return isSupplier;
     }
 
     public void setSupplier(boolean supplier) {
-        IsSupplier = supplier;
+        isSupplier = supplier;
     }
 }

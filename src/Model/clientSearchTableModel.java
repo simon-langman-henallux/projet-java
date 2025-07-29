@@ -1,7 +1,6 @@
 package Model;
 
 import javax.swing.table.AbstractTableModel;
-import java.sql.Date;
 import java.util.List;
 
 public class ClientSearchTableModel extends AbstractTableModel {

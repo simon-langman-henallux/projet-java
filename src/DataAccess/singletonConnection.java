@@ -7,7 +7,7 @@ public class SingletonConnection {
     private SingletonConnection(){}
     public static Connection getInstance() throws SQLException {
         if (connectionUnique == null || connectionUnique.isClosed()) {
-            connectionUnique = DriverManager.getConnection("jdbc:mysql://PC-SIMON:3306/db_projet_java", "root", "mdp1");
+            connectionUnique = DriverManager.getConnection("jdbc:mysql://PC-SIMON:3306/db_game_store", "root", "root");
         }
         return connectionUnique;
     }
