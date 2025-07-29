@@ -95,18 +95,20 @@ public class AddGamePanel extends JPanel {
     private class AddGameListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
-                GameDAO.insertGame(
-                        title,
-                        price,
-                        releaseDate,
-                        description,
-                        ageRestriction,
-                        isMultiplayer,
-                        duration,
-                        publisher,
-                        platform,
-                        genre
+                Game game = new Game(
+                        title.getText(),
+                        Double.parseDouble(price.getText()),
+                        java.sql.Date.valueOf(releaseDate.getText()),
+                        description.getText(),
+                        Integer.parseInt(ageRestriction.getText()),
+                        isMultiplayer.isSelected(),
+                        Double.parseDouble(duration.getText()),
+                        (String) publisher.getSelectedItem(),
+                        (String) genre.getSelectedItem(),
+                        (String) platform.getSelectedItem()
                 );
+
+                GameDAO.insertGame(game);
                 JOptionPane.showMessageDialog(AddGamePanel.this, "Game added successfully!");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(AddGamePanel.this, "SQL Error: " + ex.getMessage());
@@ -115,4 +117,5 @@ public class AddGamePanel extends JPanel {
             }
         }
     }
+
 }
