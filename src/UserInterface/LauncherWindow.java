@@ -17,7 +17,7 @@ public class LauncherWindow extends JFrame {
     private JMenuItem newOrderItem;
 
     public LauncherWindow(){
-        super("Gestion Magasin de Jeu Vidéo");
+        super("GMS (Games Management Software)");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainContainer = this.getContentPane();
         mainContainer.setLayout(new BorderLayout());
@@ -30,43 +30,51 @@ public class LauncherWindow extends JFrame {
 
         menuBar = new JMenuBar();
 
-        gameMenu = new JMenu("Jeux");
+        gameMenu = new JMenu("Games");
 
-        addGameItem = new JMenuItem("Ajouter un jeu");
+        addGameItem = new JMenuItem("Add game");
         //Ajouter action vers le menu
         gameMenu.add(addGameItem);
+        addGameItem.addActionListener(e -> {
+            JFrame frame = new JFrame("Add Game");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.setSize(400, 500);
+            frame.setLocationRelativeTo(null);
+            frame.add(new AddGamePanel());
+            frame.setVisible(true);
+        });
 
-        viewGameItem = new JMenuItem("Voir tous les jeux");
+        viewGameItem = new JMenuItem("See all games");
         //Ajouter action vers le menu
         gameMenu.add(viewGameItem);
 
-        personMenu = new JMenu("Personnes");
+        personMenu = new JMenu("Person");
 
-        addPersonItem = new JMenuItem("Ajouter une personne");
+        addPersonItem = new JMenuItem("Add a person");
         //Ajouter action vers le menu
         personMenu.add(addPersonItem);
 
-        viewPersonItem = new JMenuItem("Voir toutes les personnes");
+        viewPersonItem = new JMenuItem("List the persons");
         //Ajouter action vers le menu
         personMenu.add(viewPersonItem);
 
-        researchMenu = new JMenu("Recherches");
+        researchMenu = new JMenu("Search");
 
-        ageResearchItem = new JMenuItem("Recherche par âge");
+        ageResearchItem = new JMenuItem("Search by age");
         //Ajouter action vers le menu
         researchMenu.add(ageResearchItem);
 
-        gameResearchItem = new JMenuItem("Recherche par jeu");
+        gameResearchItem = new JMenuItem("Search by game name");
         //Ajouter action vers le menu
         researchMenu.add(gameResearchItem);
 
-        byDateResearchItem = new JMenuItem("Recherche par date");
+        byDateResearchItem = new JMenuItem("Search by date");
         //Ajouter action vers le menu
         researchMenu.add(byDateResearchItem);
 
-        orderMenu = new JMenu("Commandes");
+        orderMenu = new JMenu("Order(s)");
 
-        newOrderItem = new JMenuItem("Créer une nouvelle commande");
+        newOrderItem = new JMenuItem("Create new order");
         //Ajouter action vers le menu
         orderMenu.add(newOrderItem);
 

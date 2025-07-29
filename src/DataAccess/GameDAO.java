@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import Model.*;
 
+import javax.swing.*;
+
 public class GameDAO {
 
     public static Game getGameByData(ResultSet data){
@@ -98,24 +100,38 @@ public class GameDAO {
         return resultSet;
     }
 
-    public static void insertGame(Game game) throws SQLException {
+    public static void insertGame(
+            JTextField title,
+            JTextField price,
+            JTextField releaseDate,
+            JTextField description,
+            JTextField ageRestriction,
+            JCheckBox isMultiplayer,
+            JTextField duration,
+            JComboBox publisher,
+            JComboBox genre,
+            JComboBox platform
+    ) throws SQLException {
 
-        try (Connection con = SingletonConnection.getInstance()){
-            String sql = "INSERT INTO game (title, price, releaseDate, description, ageRestriction, isMultiplayer, duration, Publisher, Genre, Platform) values(?,?,?,?,?,?,?,?,?,?)";
+        try (Connection con = SingletonConnection.getInstance()) {
+            String sql = "INSERT INTO game (title, price, releaseDate, description, ageRestriction, isMultiplayer, duration, publisher, genre, platform) VALUES (?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, game.getTitle());
-            ps.setDouble(2, game.getPrice());
-            ps.setDate(3, new java.sql.Date(game.getReleaseDate().getTime()));
-            ps.setString(4, game.getDescription());
-            ps.setInt(5, game.getAgeRestriction());
-            ps.setBoolean(6, game.isMultiplayer());
-            ps.setDouble(7, game.getDuration());
-            ps.setString(8, game.getPublisher().getName());
-            ps.setString(9, game.getGenre().getName());
-            ps.setString(10, game.getPlatform().getName());
+
+            ps.setString(1, title.getText());
+            ps.setDouble(2, Double.parseDouble(price.getText()));
+            ps.setDate(3, java.sql.Date.valueOf(releaseDate.getText())); // yyyy-MM-dd
+            ps.setString(4, description.getText());
+            ps.setInt(5, Integer.parseInt(ageRestriction.getText()));
+            ps.setBoolean(6, isMultiplayer.isSelected());
+            ps.setDouble(7, Double.parseDouble(duration.getText()));
+            ps.setString(8, publisher.toString());
+            ps.setString(9, genre.toString());
+            ps.setString(10, platform.toString());
+
             ps.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | IllegalArgumentException e) {
             e.printStackTrace();
+            throw new SQLException("Erreur lors de l'insertion du jeu", e);
         }
     }
 
