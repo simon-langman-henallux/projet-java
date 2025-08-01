@@ -7,7 +7,7 @@ import java.util.List;
 import exception.DataAccessException;
 import model.Game;
 
-public class GameDAO implements IGameDAO {
+public class GameDAO implements dataAccess.IGameDAO {
 
     private Connection conn;
 
