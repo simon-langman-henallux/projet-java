@@ -1,0 +1,9 @@
+- pourquoi des interfaces dans DataAccess ?
+
+sert à définir les opérations CRUD que la couche Business est autorisée à appeler.
+permet de facilement changer l'implémentation de la couche DataAccess
+en modifiant le moins possible le code dans Business (découplage de couches).
+
+- que font les classes concrètes ?
+
+elle implémentent les interfaces, ouvre la connexion à la DB, PREPARENT LES REQUÊTES et gestion des exceptions + mapping des resultset
