@@ -26,4 +26,4 @@ replay_pid*
 .idea
 
 
-src/DataAccess/SingletonConnection
+src/dataAccess/SingletonConnection

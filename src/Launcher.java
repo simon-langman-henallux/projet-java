@@ -1,5 +1,5 @@
 import javax.swing.SwingUtilities;
-import View.LauncherWindow;
+import view.LauncherWindow;
 
 public class Launcher {
     public static void main(String[] args) {
@@ -9,4 +9,4 @@ public class Launcher {
     }
 }
 
-//ordre de travail : Model → Exception → DataAccess → Business → Controller → View → Launcher
+//ordre de travail : model → exception → dataAccess → business → controller → view → Launcher
