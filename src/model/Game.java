@@ -6,67 +6,27 @@ public class Game {
 
     private String title, description;
     private double price, duration;
-    private Date date;
+    private Date releaseDate;
     private int ageRestriction;
     private boolean isMultiplayer;
-    private Publisher publisher;
-    private Genre genre;
-    private Platform platform;
+    private String publisher;
+    private String genre;
+    private String platform;
 
-    public Game(String title, String description, double price, double duration, Date date, int ageRestriction, boolean isMultiplayer, Publisher publisher, Genre genre, Platform platform) {
-        setTitle(title);
-        setDescription(description);
-        setPrice(price);
-        setDuration(duration);
-        setReleaseDate(date);
-        setAgeRestriction(ageRestriction);
-        setMultiplayer(isMultiplayer);
-        setPublisher(publisher);
-        setGenre(genre);
-        setPlatform(platform);
+    public Game(String title, double price, Date resleaseDate, String description, int ageRestriction, boolean isMultiplayer, double duration, String publisher, String genre, String platform) {
+        this.title = title;
+        this.price = price;
+        this.releaseDate = resleaseDate;
+        this.description = description;
+        this.ageRestriction = ageRestriction;
+        this.isMultiplayer = isMultiplayer;
+        this.duration = duration;
+        this.publisher = publisher;
+        this.genre = genre;
+        this.platform = platform;
     }
     public Game(){
-        this(null, null, 0.0, 0.0, null, 0, false, null,null, null);
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        description = description;
-    }
-
-    public void setPrice(double price) {
-        price = price;
-    }
-
-    public void setDuration(double duration) {
-        duration = duration;
-    }
-
-    public void setReleaseDate(Date date) {
-        date = date;
-    }
-
-    public void setAgeRestriction(int ageRestriction) {
-        ageRestriction = ageRestriction;
-    }
-
-    public void setMultiplayer(boolean multiplayer) {
-        isMultiplayer = multiplayer;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        publisher = publisher;
-    }
-
-    public void setGenre(Genre genre) {
-        genre = genre;
-    }
-
-    public void setPlatform(Platform platform) {
-        platform = platform;
+        this(null, 0.0, null, null, 0, false, 0, null,null, null);
     }
 
     public String getTitle() {
@@ -86,7 +46,7 @@ public class Game {
     }
 
     public Date getReleaseDate() {
-        return date;
+        return releaseDate;
     }
 
     public int getAgeRestriction() {
@@ -97,15 +57,15 @@ public class Game {
         return isMultiplayer;
     }
 
-    public Publisher getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
-    public Genre getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public Platform getPlatform() {
+    public String getPlatform() {
         return platform;
     }
 }
