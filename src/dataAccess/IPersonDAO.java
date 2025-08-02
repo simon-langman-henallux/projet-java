@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IPersonDAO {
     void insert(Person person) throws SQLException;
-    Person find(int id) throws SQLException;
+    Person findById(int id) throws SQLException;
     List<Person> findAll() throws SQLException;
     void update(Person person) throws SQLException;
     void delete(int id) throws SQLException;

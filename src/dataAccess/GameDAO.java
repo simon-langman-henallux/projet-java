@@ -31,7 +31,10 @@ public class GameDAO implements dataAccess.IGameDAO {
             ps.setObject(7, game.getDuration(), Types.DOUBLE);
             ps.setString(8, game.getPublisher().toString());
             ps.setObject(9, game.getGenre().toString(), Types.VARCHAR);
-            ps.executeUpdate();
+            int affected = ps.executeUpdate();
+            if (affected == 0) {
+                throw new DataAccessException("No rows affected");
+            }
         } catch (SQLException e) {
             throw new DataAccessException("Insert Game Error");
         }
@@ -41,7 +44,10 @@ public class GameDAO implements dataAccess.IGameDAO {
         String sql = "delete from game where title = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, title);
-            ps.executeUpdate();
+            int affected = ps.executeUpdate();
+            if (affected == 0) {
+                throw new DataAccessException("No rows affected");
+            }
         }  catch (SQLException e) {
             throw new DataAccessException("Delete Game Error");
         }
@@ -52,7 +58,7 @@ public class GameDAO implements dataAccess.IGameDAO {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, game.getTitle());
             ps.setDouble(2, game.getPrice());
-            ps.setDate(3, (Date) game.getReleaseDate());
+            ps.setDate(3, new java.sql.Date(game.getReleaseDate().getTime()));
             ps.setString(4, game.getDescription());
             ps.setInt(5, game.getAgeRestriction());
             ps.setBoolean(6, game.isMultiplayer());
@@ -60,7 +66,10 @@ public class GameDAO implements dataAccess.IGameDAO {
             ps.setString(8, game.getPublisher().toString());
             ps.setString(9, game.getGenre().toString());
             ps.setString(10, game.getTitle());
-            ps.executeUpdate();
+            int affected = ps.executeUpdate();
+            if (affected == 0) {
+                throw new DataAccessException("No rows affected");
+            }
         } catch (SQLException e) {
             throw new DataAccessException("Update Game Error");
         }
@@ -82,7 +91,7 @@ public class GameDAO implements dataAccess.IGameDAO {
     @Override
     public List<Game> findAll() throws DataAccessException {
         List<Game> games = new ArrayList<>();
-        String sql = "SELECT * FROM game";
+        String sql = "select * from game order by title";
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {

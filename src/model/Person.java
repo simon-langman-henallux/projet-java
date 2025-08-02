@@ -8,7 +8,7 @@ public class Person {
     private String name, firstName, phoneNumber, accountNumber, streetName, nameCity, country;
     private Date birthDate;
     private boolean isClient, isSupplier;
-    // constructeur utile pour les delete, update etc...
+    // constructeur pour les delete, update etc...
     public Person(int id, String name, String firstName, String phoneNumber, Date birthDate, int boxNumber, String accountNumber, String streetName, int streetNumber, boolean isClient, boolean isSupplier, int zipCodeCity, String nameCity, String country) {
         this.id = id;
         this.name = name;
@@ -25,7 +25,7 @@ public class Person {
         this.nameCity = nameCity;
         this.country = country;
     }
-    // constructeur pour les insert car id auto-incrémenter
+    // constructeur pour les insert car id auto-incrémenté
     public Person(String name, String firstName, String phoneNumber, Date birthDate, int boxNumber, String accountNumber, String streetName, int streetNumber, boolean isClient, boolean isSupplier, int zipCodeCity, String nameCity, String country) {
         this.name = name;
         this.firstName = firstName;
