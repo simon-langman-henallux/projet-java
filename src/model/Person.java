@@ -8,9 +8,24 @@ public class Person {
     private String name, firstName, phoneNumber, accountNumber, streetName, nameCity, country;
     private Date birthDate;
     private boolean isClient, isSupplier;
-
+    // constructeur utile pour les delete, update etc...
     public Person(int id, String name, String firstName, String phoneNumber, Date birthDate, int boxNumber, String accountNumber, String streetName, boolean isClient, boolean isSupplier, int zipCodeCity, String nameCity, String country) {
         this.id = id;
+        this.name = name;
+        this.firstName = firstName;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
+        this.boxNumber = boxNumber;
+        this.accountNumber = accountNumber;
+        this.streetName = streetName;
+        this.isClient = isClient;
+        this.isSupplier = isSupplier;
+        this.zipCodeCity = zipCodeCity;
+        this.nameCity = nameCity;
+        this.country = country;
+    }
+    // constructeur pour les insert car id auto-incrémenter
+    public Person(String name, String firstName, String phoneNumber, Date birthDate, int boxNumber, String accountNumber, String streetName, boolean isClient, boolean isSupplier, int zipCodeCity, String nameCity, String country) {
         this.name = name;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
