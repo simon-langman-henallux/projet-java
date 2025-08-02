@@ -25,12 +25,12 @@ public class GameDAO implements dataAccess.IGameDAO {
             ps.setString(1, game.getTitle());
             ps.setDouble(2, game.getPrice());
             ps.setDate(3, (Date) game.getReleaseDate());
-            ps.setString(4, game.getDescription());
+            ps.setObject(4, game.getDescription(), Types.VARCHAR);
             ps.setInt(5, game.getAgeRestriction());
             ps.setBoolean(6, game.isMultiplayer());
-            ps.setDouble(7, game.getDuration());
+            ps.setObject(7, game.getDuration(), Types.DOUBLE);
             ps.setString(8, game.getPublisher().toString());
-            ps.setString(9, game.getGenre().toString());
+            ps.setObject(9, game.getGenre().toString(), Types.VARCHAR);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new DataAccessException("Insert Game Error");

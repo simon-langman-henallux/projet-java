@@ -78,6 +78,10 @@ public class Person {
         return streetName;
     }
 
+    public int getStreetNumber() {
+        return streetNumber;
+    }
+
     public String getNameCity() {
         return nameCity;
     }
@@ -128,6 +132,10 @@ public class Person {
 
     public void setStreetName(String streetName) {
         this.streetName = streetName;
+    }
+
+    public void setStreetNumber(int streetNumber) {
+        this.streetNumber = streetNumber;
     }
 
     public void setNameCity(String nameCity) {

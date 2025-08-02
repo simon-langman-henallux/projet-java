@@ -26,17 +26,17 @@ public class PersonDAO implements IPersonDAO {
            isClient, isSupplier, zipCodeCity, nameCity, country)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
         """;
-        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, person.getName());
-            ps.setString(2, person.getFirstName());
+            ps.setObject(2, person.getFirstName(), Types.VARCHAR);
             ps.setString(3, person.getPhoneNumber());
             ps.setDate(4, new java.sql.Date(person.getBirthDate().getTime()));
             ps.setObject(5, person.getBoxNumber(), Types.INTEGER);
-            ps.setString(6, person.getAccountNumber());
+            ps.setObject(6, person.getAccountNumber(), Types.VARCHAR);
             ps.setString(7, person.getStreetName());
             ps.setInt(8, person.getStreetNumber());
             ps.setBoolean(9, person.isClient());
-            ps.setObject(10, person.isSupplier(), Types.BOOLEAN);
+            ps.setBoolean(10, person.isSupplier());
             ps.setInt(11, person.getZipCodeCity());
             ps.setString(12, person.getNameCity());
             ps.setString(13, person.getCountry());
@@ -45,13 +45,8 @@ public class PersonDAO implements IPersonDAO {
             if (affected == 0) {
                 throw new DataAccessException("Échec de l’insertion de Person");
             }
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    person.setId(rs.getInt(1));
-                }
-            }
         } catch (SQLException e) {
-            throw new DataAccessException("Insert Person Error", e);
+            throw new DataAccessException("Insert Person Error");
         }
     }
 
