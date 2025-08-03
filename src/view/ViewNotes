@@ -1,0 +1,14 @@
+ordre d'implémentation des classes :
+
+| Ordre | Classe              | Pourquoi commencer par elle                       |
+| ----- | ------------------- | ------------------------------------------------- |
+| 1     | `WelcomePanel`      | Écran d'accueil, sans dépendances                 |
+| 2     | `LauncherWindow`    | Fenêtre principale avec menus                     |
+| 3     | `AddGamePanel`      | Premier formulaire CRUD (le plus simple à tester) |
+| 4     | `ListGamePanel`     | Affiche + supprime + permet modification          |
+| 5     | `AddPersonPanel`    | Même logique, une fois Game maîtrisé              |
+| 6     | `ListPersonPanel`   | Affichage et gestion de Person                    |
+| 7     | `SearchByGamePanel` | Recherche simple avec combo jeux                  |
+| 8     | `SearchByDatePanel` | Recherche avec combo client + `JSpinner` date     |
+| 9     | `SearchByAgePanel`  | Recherche avec combo pays + `JSpinner` âge        |
+| 10    | `AnimatedLogoPanel` | Thread indépendant (aucune dépendance métier)     |

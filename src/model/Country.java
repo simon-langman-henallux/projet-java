@@ -9,4 +9,17 @@ public class Country {
         this.currency = currency;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

@@ -12,4 +12,21 @@ public class City {
         this.country = country;
     }
 
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + zipCode + ")";
+    }
+
 }

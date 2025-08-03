@@ -12,7 +12,7 @@ import java.util.List;
 public class SearchController {
     private final ISearchDAO dao = new SearchDAO();
 
-    public void searchByGame(String title, JTable table) throws DataAccessException {
+    public List<Object[]> searchByGame(String title, JTable table) throws DataAccessException {
         List<Object[]> rows = dao.searchByGameTitle(title);
         String[] columns = {"First Name", "Last Name", "Street", "Zip Code", "City", "Country", "Currency"};
 
@@ -21,17 +21,11 @@ public class SearchController {
             model.addRow(row);
         }
         table.setModel(model);
+        return rows;
     }
 
-    public void searchByDate(int personId, Date toDate, JTable table) throws DataAccessException {
-        List<Object[]> rows = dao.searchGamesBoughtBefore(personId, toDate);
-        String[] columns = {"Game Title", "Document Date", "Quantity", "Unit Price"};
-
-        DefaultTableModel model = new DefaultTableModel(columns, 0);
-        for (Object[] row : rows) {
-            model.addRow(row);
-        }
-        table.setModel(model);
+    public List<Object[]> searchByDate(int personId, Date toDate) throws DataAccessException {
+        return dao.searchGamesBoughtBefore(personId, toDate);
     }
 
     public void searchByAge(int ageLimit, String country, JTable table) throws DataAccessException {
