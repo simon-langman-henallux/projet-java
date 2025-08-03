@@ -12,7 +12,7 @@ public class AddPersonPanel extends JPanel {
     private final PersonController controller = new PersonController();
 
     public AddPersonPanel() {
-        setLayout(new GridLayout(0, 2, 10, 10));
+        setLayout(new BorderLayout());
 
         // Champs
         JTextField nameField = new JTextField();

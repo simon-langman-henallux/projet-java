@@ -2,15 +2,14 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 public class AnimatedLogoPanel extends JPanel implements Runnable {
-    private final int width = 800;
-    private final int height = 600;
+    private final int width = 100;
+    private final int height = 100;
     private int x = 100, y = 100;
     private int dx = 2, dy = 2;
-    private final int logoSize = 100;
+    private final int logoSize = 120;
     private final Image logo;
 
     public AnimatedLogoPanel() {
@@ -21,7 +20,8 @@ public class AnimatedLogoPanel extends JPanel implements Runnable {
     }
 
     private Image loadLogoImage() {
-        return new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/AlienCat.jpg"))).getImage();
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/AlienCat.jpg")));
+        return icon.getImage().getScaledInstance(logoSize, logoSize, Image.SCALE_SMOOTH);
     }
 
     @Override

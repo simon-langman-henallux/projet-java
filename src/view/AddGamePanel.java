@@ -12,7 +12,7 @@ public class AddGamePanel extends JPanel {
     private final GameController controller = new GameController();
 
     public AddGamePanel() {
-        setLayout(new GridLayout(0, 2, 10, 10));
+        setLayout(new BorderLayout());
 
         // Champs du formulaire
         JTextField titleField = new JTextField();

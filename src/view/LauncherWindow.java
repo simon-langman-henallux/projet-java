@@ -10,10 +10,10 @@ public class LauncherWindow extends JFrame {
     public LauncherWindow() {
         setTitle("Game Store Manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 700);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(false);
         setLocationRelativeTo(null);
 
-        // Gestion des panneaux (card layout)
         layout = new CardLayout();
         container = new JPanel(layout);
         setContentPane(container);
