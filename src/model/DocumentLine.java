@@ -8,10 +8,10 @@ public class DocumentLine {
     private int quantity;
 
     public DocumentLine(String game, String document, double unitPrice, int quantity) {
-        game = game;
-        document = document;
-        unitPrice = unitPrice;
-        quantity = quantity;
+        this.game = game;
+        this.document = document;
+        this.unitPrice = unitPrice;
+        this.quantity = quantity;
     }
 
 }

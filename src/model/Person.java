@@ -46,10 +46,6 @@ public class Person {
         this(null, null, null, null, 0, null, null, 0, false, false, 0, null, null);
     }
 
-    public int getId() {
-        return id;
-    }
-
     public int getBoxNumber() {
         return boxNumber;
     }
@@ -102,59 +98,4 @@ public class Person {
         return isSupplier;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setBoxNumber(int boxNumber) {
-        this.boxNumber = boxNumber;
-    }
-
-    public void setZipCodeCity(int zipCodeCity) {
-        this.zipCodeCity = zipCodeCity;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
-
-    public void setStreetNumber(int streetNumber) {
-        this.streetNumber = streetNumber;
-    }
-
-    public void setNameCity(String nameCity) {
-        this.nameCity = nameCity;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setClient(boolean client) {
-        isClient = client;
-    }
-
-    public void setSupplier(boolean supplier) {
-        isSupplier = supplier;
-    }
 }

@@ -9,4 +9,9 @@ public class GameController {
     public void createGame() throws Exception {}
     public void editGame(String title) throws Exception {}
     public void removeGame(String title) throws Exception {}
+
+    public GameService getService() {
+        return service;
+    }
+
 }

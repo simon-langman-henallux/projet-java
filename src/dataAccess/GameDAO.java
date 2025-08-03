@@ -15,7 +15,7 @@ public class GameDAO implements dataAccess.IGameDAO {
         try {
             conn = dataAccess.SingletonConnection.getInstance();
         } catch (SQLException e) {
-            throw new DataAccessException("Connections to Database Error");
+            throw new DataAccessException("GameDAO Connections to Database Error");
         }
     }
     @Override
@@ -75,7 +75,7 @@ public class GameDAO implements dataAccess.IGameDAO {
         }
     }
     @Override
-    public Game findById(String title) throws DataAccessException {
+    public Game getGameByTitle(String title) throws DataAccessException {
         String sql = "select * from game where title = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, title);
@@ -85,11 +85,11 @@ public class GameDAO implements dataAccess.IGameDAO {
                 } else return null;
             }
         } catch  (SQLException e) {
-            throw new DataAccessException("Find Game by Title Error");
+            throw new DataAccessException("Get Game by Title Error");
         }
     }
     @Override
-    public List<Game> findAll() throws DataAccessException {
+    public List<Game> getAllGame() throws DataAccessException {
         List<Game> games = new ArrayList<>();
         String sql = "select * from game order by title";
         try (PreparedStatement ps = conn.prepareStatement(sql);

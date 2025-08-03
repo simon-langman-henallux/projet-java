@@ -11,4 +11,5 @@ public class Publisher {
     public String getName() {
         return name;
     }
+
 }

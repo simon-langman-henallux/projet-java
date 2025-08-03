@@ -8,6 +8,6 @@ public interface IGameDAO {
     void insert(Game game) throws SQLException;
     void delete(String title) throws SQLException;
     void update(Game game) throws SQLException;
-    Game findById(String title) throws SQLException;
-    List<Game> findAll() throws SQLException;
+    Game getGameByTitle(String title) throws SQLException;
+    List<Game> getAllGame() throws SQLException;
 }

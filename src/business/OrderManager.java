@@ -1,4 +1,3 @@
-// business/OrderManager.java
 package business;
 
 import model.Person;

@@ -68,4 +68,5 @@ public class Game {
     public String getPlatform() {
         return platform;
     }
+
 }

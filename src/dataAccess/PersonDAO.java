@@ -15,12 +15,12 @@ public class PersonDAO implements IPersonDAO {
         try {
             conn = dataAccess.SingletonConnection.getInstance();
         } catch (SQLException e) {
-            throw new DataAccessException("Connections to Database Error");
+            throw new DataAccessException("PersonDAO Connections to Database Error");
         }
     }
     @Override
     public void insert(Person person) {
-        String sql = "insert into person (name, firstName, phoneNumber, birthDate, boxNumber, accountNumber, streetName, streetNumber, isClient, isSupplier, zipCodeCity, nameCity, country) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into person (name, firstName, phoneNumber, birthDate, boxNumber, accountNumber, streetName, streetNumber, isClient, isSupplier, zipCodeCity, nameCity, country) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, person.getName());
             ps.setObject(2, person.getFirstName(), Types.VARCHAR);
@@ -44,8 +44,8 @@ public class PersonDAO implements IPersonDAO {
         }
     }
     @Override
-    public Person findById(int id) throws DataAccessException {
-        String sql = "select * from person where id = ? order by name";
+    public Person getPersonById(int id) throws DataAccessException {
+        String sql = "select * from person where id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -54,11 +54,11 @@ public class PersonDAO implements IPersonDAO {
                 } else return null;
             }
         } catch  (SQLException e) {
-            throw new DataAccessException("Find Person by id Error");
+            throw new DataAccessException("Get Person by id Error");
         }
     }
     @Override
-    public List<Person> findAll() throws DataAccessException {
+    public List<Person> getAllPerson() throws DataAccessException {
         List<Person> persons = new ArrayList<>();
         String sql = "select * from person order by name";
         try (PreparedStatement ps = conn.prepareStatement(sql);
@@ -111,6 +111,7 @@ public class PersonDAO implements IPersonDAO {
     }
     private Person map(ResultSet rs) throws SQLException {
         return new Person(
+                rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("firstName"),
                 rs.getString("phoneNumber"),

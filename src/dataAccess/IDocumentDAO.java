@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface IDocumentDAO {
     void insert(Document doc) throws SQLException;
-    Document find(String reference) throws SQLException;
-    List<Document> findAll() throws SQLException;
+    Document getDocumentByReference(String ref) throws SQLException;
+    List<Document> getAllDocument() throws SQLException;
     void update(Document doc) throws SQLException;
-    void delete(String reference) throws SQLException;
+    void delete(String ref) throws SQLException;
 }
