@@ -15,7 +15,7 @@ public class PersonDAO implements IPersonDAO {
         try {
             conn = dataAccess.SingletonConnection.getInstance();
         } catch (SQLException e) {
-            throw new DataAccessException("PersonDAO Connections to Database Error");
+            throw new DataAccessException("personDAO Connections to Database Error");
         }
     }
     @Override

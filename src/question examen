@@ -1,4 +1,4 @@
 - design pattern SingletonConnection, DAO
 - les couches (dataAccess, business, exception, etc...)
 - 2 constructeurs ds Person mais pas dans Game et Document ? car l'identifiant de Peerson est auto-incrémenté donc dans les insert pas besoin de récupérer l'insert, mais dans Game et Document si.
--
+- Service Layer Pattern (méthode validate dans GameService, etc)

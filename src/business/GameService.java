@@ -10,26 +10,26 @@ import java.util.List;
 
 public class GameService {
 
-    private IGameDAO gameDAO;
+    private final IGameDAO gameDAO;
 
     public GameService() {
         this.gameDAO = new GameDAO();
     }
 
     public void createGame(Game game) throws DataAccessException, SQLException {
-        validateGame(game);
+        validate(game);
         if (gameDAO.getGameByTitle(game.getTitle()) != null) {
             throw new DataAccessException("A game with this title already exists.");
         }
         gameDAO.insert(game);
     }
 
-    public void updateGame(Game game) throws DataAccessException, SQLException {
-        validateGame(game);
+    public void update(Game game) throws DataAccessException, SQLException {
+        validate(game);
         gameDAO.update(game);
     }
 
-    public void deleteGame(String title) throws DataAccessException, SQLException {
+    public void delete(String title) throws DataAccessException, SQLException {
         if (title == null || title.isBlank()) {
             throw new DataAccessException("Game title cannot be empty.");
         }
@@ -44,7 +44,7 @@ public class GameService {
         return gameDAO.getGameByTitle(title);
     }
 
-    private void validateGame(Game game) throws DataAccessException {
+    private void validate(Game game) throws DataAccessException {
         if (game.getTitle() == null || game.getTitle().isBlank()) {
             throw new DataAccessException("Game title is required.");
         }
