@@ -20,6 +20,7 @@ public class LauncherWindow extends JFrame {
 
         // Ajouter les panels disponibles
         container.add(new WelcomePanel(), "welcome");
+        container.add(new AnimatedLogoPanel(), "logo");
 
         // Menu principal
         JMenuBar menuBar = new JMenuBar();
@@ -31,6 +32,16 @@ public class LauncherWindow extends JFrame {
         JMenuItem welcomeItem = new JMenuItem("Welcome");
         welcomeItem.addActionListener(e -> layout.show(container, "welcome"));
         menu.add(welcomeItem);
+
+        JMenuItem logoItem = new JMenuItem("Animated Logo");
+        logoItem.addActionListener(e -> {
+            layout.show(container, "logo");
+
+            Timer timer = new Timer(5000, ev -> layout.show(container, "welcome"));
+            timer.setRepeats(false);
+            timer.start();
+        });
+        menu.add(logoItem);
 
         // Affichage initial
         layout.show(container, "welcome");
