@@ -13,10 +13,10 @@ public class Game {
     private String genre;
     private String platform;
 
-    public Game(String title, double price, Date resleaseDate, String description, int ageRestriction, boolean isMultiplayer, double duration, int stock, String publisher, String genre, String platform) {
+    public Game(String title, double price, Date releaseDate, String description, int ageRestriction, boolean isMultiplayer, double duration, int stock, String publisher, String genre, String platform) {
         this.title = title;
         this.price = price;
-        this.releaseDate = resleaseDate;
+        this.releaseDate = releaseDate;
         this.description = description;
         this.ageRestriction = ageRestriction;
         this.isMultiplayer = isMultiplayer;

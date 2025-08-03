@@ -1,8 +1,10 @@
 package dataAccess;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import exception.DataAccessException;
 import model.Game;
@@ -20,18 +22,19 @@ public class GameDAO implements dataAccess.IGameDAO {
     }
     @Override
     public void insert(Game game) throws DataAccessException {
-        String sql = "insert into game (title, price, releaseDate, description, ageRestriction, isMultiplayer, duration, stock, publisher, platform, genre) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into game (title, price, releaseDate, description, ageRestriction, isMultiplayer, duration, stock, publisher, platform, genre) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, game.getTitle());
             ps.setDouble(2, game.getPrice());
-            ps.setDate(3, (Date) game.getReleaseDate());
+            ps.setDate(3, new java.sql.Date(game.getReleaseDate().getTime()));
             ps.setObject(4, game.getDescription(), Types.VARCHAR);
             ps.setInt(5, game.getAgeRestriction());
             ps.setBoolean(6, game.isMultiplayer());
             ps.setObject(7, game.getDuration(), Types.DOUBLE);
             ps.setInt(8, game.getStock());
-            ps.setString(9, game.getPublisher().toString());
-            ps.setObject(10, game.getGenre().toString(), Types.VARCHAR);
+            ps.setString(9, game.getPublisher());
+            ps.setString(10, game.getPlatform());
+            ps.setObject(11, game.getGenre(), Types.VARCHAR);
             int affected = ps.executeUpdate();
             if (affected == 0) {
                 throw new DataAccessException("Game insert failed.");
@@ -104,6 +107,43 @@ public class GameDAO implements dataAccess.IGameDAO {
         }
         return games;
     }
+
+    @Override
+    public Map<String, BigDecimal> getTotalSalesByGenre() throws DataAccessException {
+        String sql = "select g.genre, sum(dl.quantity * dl.unitPrice) as total from documentline dl join game g on g.title = dl.game join document d on d.reference = dl.document where d.type = 'Sale' group by g.genre";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            Map<String, BigDecimal> result = new java.util.HashMap<>();
+            while (rs.next()) {
+                result.put(rs.getString("genre"), rs.getBigDecimal("total"));
+            }
+            return result;
+
+        } catch (SQLException e) {
+            throw new DataAccessException("Error retrieving total sales by genre: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Map<String, BigDecimal> getAveragePriceByPublisher() throws DataAccessException {
+        String sql = "select publisher, avg(price) as average from game group by publisher";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            Map<String, BigDecimal> result = new java.util.HashMap<>();
+            while (rs.next()) {
+                result.put(rs.getString("publisher"), rs.getBigDecimal("average"));
+            }
+            return result;
+
+        } catch (SQLException e) {
+            throw new DataAccessException("Error retrieving average price by publisher: " + e.getMessage());
+        }
+    }
+
     private Game map(ResultSet rs) throws DataAccessException {
         try {
             return new Game(

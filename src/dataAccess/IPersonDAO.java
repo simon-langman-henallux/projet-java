@@ -2,7 +2,6 @@ package dataAccess;
 
 import exception.DataAccessException;
 import model.Person;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IPersonDAO {

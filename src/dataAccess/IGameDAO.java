@@ -2,8 +2,10 @@ package dataAccess;
 
 import exception.DataAccessException;
 import model.Game;
-import java.sql.SQLException;
+
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface IGameDAO {
     void insert(Game game) throws DataAccessException;
@@ -11,4 +13,6 @@ public interface IGameDAO {
     void update(Game game) throws DataAccessException;
     Game getGameByTitle(String title) throws DataAccessException;
     List<Game> getAllGame() throws DataAccessException;
+    Map<String, BigDecimal> getTotalSalesByGenre() throws DataAccessException;
+    Map<String, BigDecimal> getAveragePriceByPublisher() throws DataAccessException;
 }
