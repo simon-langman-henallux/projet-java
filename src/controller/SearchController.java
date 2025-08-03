@@ -28,15 +28,8 @@ public class SearchController {
         return dao.searchGamesBoughtBefore(personId, toDate);
     }
 
-    public void searchByAge(int ageLimit, String country, JTable table) throws DataAccessException {
-        List<Object[]> rows = dao.searchGamesByAgeAndCountry(ageLimit, country);
-        String[] columns = {"Name", "First Name", "Birth Date", "Game Title", "Age Restriction", "Genre"};
-
-        DefaultTableModel model = new DefaultTableModel(columns, 0);
-        for (Object[] row : rows) {
-            model.addRow(row);
-        }
-        table.setModel(model);
+    public List<Object[]> searchByAge(int age, String country) throws DataAccessException {
+        return dao.searchGamesByAgeAndCountry(age, country);
     }
 
     public ISearchDAO getDao() {
