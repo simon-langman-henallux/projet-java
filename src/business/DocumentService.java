@@ -24,17 +24,14 @@ public class DocumentService {
         if (reference == null || reference.isBlank()) {
             throw new DataAccessException("Document reference is required.");
         }
-        Document doc;
-        try {
-            doc = documentDAO.getDocumentByReference(reference);
-            if (doc == null) {
-                throw new DataAccessException("Document not found.");
-            }
-            doc.setFinalized(true);
-            documentDAO.update(doc);
-        } catch (Exception e) {
-            throw new DataAccessException(e.getMessage());
+
+        Document doc = documentDAO.getDocumentByReference(reference);
+        if (doc == null) {
+            throw new DataAccessException("Document not found.");
         }
+
+        doc.setFinalized(true);
+        documentDAO.finalize(doc);
     }
 
     private void validate(Document doc) throws DataAccessException {

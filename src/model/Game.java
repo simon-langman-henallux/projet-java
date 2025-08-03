@@ -7,13 +7,13 @@ public class Game {
     private String title, description;
     private double price, duration;
     private Date releaseDate;
-    private int ageRestriction;
+    private int ageRestriction, stock;
     private boolean isMultiplayer;
     private String publisher;
     private String genre;
     private String platform;
 
-    public Game(String title, double price, Date resleaseDate, String description, int ageRestriction, boolean isMultiplayer, double duration, String publisher, String genre, String platform) {
+    public Game(String title, double price, Date resleaseDate, String description, int ageRestriction, boolean isMultiplayer, double duration, int stock, String publisher, String genre, String platform) {
         this.title = title;
         this.price = price;
         this.releaseDate = resleaseDate;
@@ -21,13 +21,13 @@ public class Game {
         this.ageRestriction = ageRestriction;
         this.isMultiplayer = isMultiplayer;
         this.duration = duration;
+        this.stock = stock;
         this.publisher = publisher;
         this.genre = genre;
         this.platform = platform;
     }
-    public Game(){
-        this(null, 0.0, null, null, 0, false, 0, null,null, null);
-    }
+
+    public Game() {}
 
     public String getTitle() {
         return title;
@@ -57,6 +57,10 @@ public class Game {
         return isMultiplayer;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
     public String getPublisher() {
         return publisher;
     }
@@ -67,6 +71,10 @@ public class Game {
 
     public String getPlatform() {
         return platform;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
 }

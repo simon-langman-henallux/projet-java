@@ -2,7 +2,6 @@ package dataAccess;
 
 import exception.DataAccessException;
 import model.Document;
-import model.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,11 +15,11 @@ public class DocumentDAO implements IDocumentDAO {
         try {
             conn = dataAccess.SingletonConnection.getInstance();
         } catch (SQLException e) {
-            throw new DataAccessException("DocumentDAO Connections to Database Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
-    public void insert(Document doc) throws SQLException {
+    public void insert(Document doc) throws DataAccessException {
         String sql = "insert into document (reference, date, paymentMethod, isFinalized, type, person) values (?, ?, ?, ?, ?, ?);";
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, doc.getReference());
@@ -34,7 +33,7 @@ public class DocumentDAO implements IDocumentDAO {
                 System.out.println("No rows affected");
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Insert Document Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     public Document getDocumentByReference(String ref) throws DataAccessException {
@@ -47,7 +46,7 @@ public class DocumentDAO implements IDocumentDAO {
                 } else return null;
             }
         } catch  (SQLException e) {
-            throw new DataAccessException("Get Document By Reference Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
@@ -60,12 +59,12 @@ public class DocumentDAO implements IDocumentDAO {
                 documents.add(map(rs));
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Get All Document Error");
+            throw new DataAccessException(e.getMessage());
         }
         return documents;
     }
     @Override
-    public void update(Document doc) throws SQLException {
+    public void update(Document doc) throws DataAccessException {
         String sql = "update document set date=?, paymentMethod=?, isFinalized=?, type=?, person=? where reference=?";
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setDate(1, new java.sql.Date(doc.getDate().getTime()));
@@ -79,11 +78,11 @@ public class DocumentDAO implements IDocumentDAO {
                 throw new DataAccessException("No rows affected");
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Update Document Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
-    public void delete(String reference) throws SQLException {
+    public void delete(String reference) throws DataAccessException {
         String sql = "delete from document where reference = ?";
         try(PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, reference);
@@ -92,29 +91,35 @@ public class DocumentDAO implements IDocumentDAO {
                 throw new DataAccessException("No rows affected");
             }
         }  catch (SQLException e) {
-            throw new DataAccessException("Delete Document Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
-    public void finalize(Document doc) throws SQLException {
+    public void finalize(Document doc) throws DataAccessException {
         String sql = "UPDATE document SET isFinalized = ? WHERE reference = ?";
         try (Connection conn = SingletonConnection.getInstance();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setBoolean(1, true);
             ps.setString(2, doc.getReference());
             ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
         }
     }
 
-    private Document map(ResultSet rs) throws SQLException {
-        return new Document(
-                rs.getString("reference"),
-                rs.getDate("date"),
-                rs.getString("paymentMethod"),
-                rs.getBoolean("isFinalized"),
-                rs.getString("type"),
-                rs.getInt("person")
-        );
-
+    private Document map(ResultSet rs) throws DataAccessException {
+        try {
+            return new Document(
+                    rs.getString("reference"),
+                    rs.getDate("date"),
+                    rs.getString("paymentMethod"),
+                    rs.getBoolean("isFinalized"),
+                    rs.getString("type"),
+                    rs.getInt("person")
+            );
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        }
     }
+
 }

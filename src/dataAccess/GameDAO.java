@@ -15,12 +15,12 @@ public class GameDAO implements dataAccess.IGameDAO {
         try {
             conn = dataAccess.SingletonConnection.getInstance();
         } catch (SQLException e) {
-            throw new DataAccessException("GameDAO Connections to Database Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
     public void insert(Game game) throws DataAccessException {
-        String sql = "insert into game (title, price, releaseDate, description, ageRestriction, isMultiplayer, duration, publisher, platform, genre) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into game (title, price, releaseDate, description, ageRestriction, isMultiplayer, duration, stock, publisher, platform, genre) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, game.getTitle());
             ps.setDouble(2, game.getPrice());
@@ -29,14 +29,15 @@ public class GameDAO implements dataAccess.IGameDAO {
             ps.setInt(5, game.getAgeRestriction());
             ps.setBoolean(6, game.isMultiplayer());
             ps.setObject(7, game.getDuration(), Types.DOUBLE);
-            ps.setString(8, game.getPublisher().toString());
-            ps.setObject(9, game.getGenre().toString(), Types.VARCHAR);
+            ps.setInt(8, game.getStock());
+            ps.setString(9, game.getPublisher().toString());
+            ps.setObject(10, game.getGenre().toString(), Types.VARCHAR);
             int affected = ps.executeUpdate();
             if (affected == 0) {
-                throw new DataAccessException("No rows affected");
+                throw new DataAccessException("Game insert failed.");
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Insert Game Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
@@ -46,15 +47,15 @@ public class GameDAO implements dataAccess.IGameDAO {
             ps.setString(1, title);
             int affected = ps.executeUpdate();
             if (affected == 0) {
-                throw new DataAccessException("No rows affected");
+                throw new DataAccessException("Game with title " + title + " not found");
             }
         }  catch (SQLException e) {
-            throw new DataAccessException("Delete Game Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
     public void update(Game game) throws DataAccessException {
-        String sql = "update game set title=?, price=?, releaseDate=?, description=?, ageRestriction=?, isMultiplayer=?, duration=?, publisher=?, platform=?, genre=? WHERE title=?";
+        String sql = "update game set title=?, price=?, releaseDate=?, description=?, ageRestriction=?, isMultiplayer=?, duration=?, stock=?, publisher=?, platform=?, genre=? WHERE title=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, game.getTitle());
             ps.setDouble(2, game.getPrice());
@@ -63,15 +64,16 @@ public class GameDAO implements dataAccess.IGameDAO {
             ps.setInt(5, game.getAgeRestriction());
             ps.setBoolean(6, game.isMultiplayer());
             ps.setDouble(7, game.getDuration());
-            ps.setString(8, game.getPublisher().toString());
-            ps.setString(9, game.getGenre().toString());
-            ps.setString(10, game.getTitle());
+            ps.setInt(8, game.getStock());
+            ps.setString(9, game.getPublisher().toString());
+            ps.setString(10, game.getGenre().toString());
+            ps.setString(11, game.getTitle());
             int affected = ps.executeUpdate();
             if (affected == 0) {
-                throw new DataAccessException("No rows affected");
+                throw new DataAccessException("No rows affected.");
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Update Game Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
@@ -85,7 +87,7 @@ public class GameDAO implements dataAccess.IGameDAO {
                 } else return null;
             }
         } catch  (SQLException e) {
-            throw new DataAccessException("Get Game by Title Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
@@ -98,22 +100,28 @@ public class GameDAO implements dataAccess.IGameDAO {
                 games.add(map(rs));
             }
         } catch (SQLException e) {
-            throw new DataAccessException("findAll Error");
+            throw new DataAccessException(e.getMessage());
         }
         return games;
     }
-    private Game map(ResultSet rs) throws SQLException {
-        return new Game(
-                rs.getString("title"),
-                rs.getDouble("price"),
-                rs.getDate("releaseDate"),
-                rs.getString("description"),
-                rs.getInt("ageRestriction"),
-                rs.getBoolean("isMultiplayer"),
-                rs.getDouble("duration"),
-                rs.getString("publisher"),
-                rs.getString("platform"),
-                rs.getString("genre")
-        );
+    private Game map(ResultSet rs) throws DataAccessException {
+        try {
+            return new Game(
+                    rs.getString("title"),
+                    rs.getDouble("price"),
+                    rs.getDate("releaseDate"),
+                    rs.getString("description"),
+                    rs.getInt("ageRestriction"),
+                    rs.getBoolean("isMultiplayer"),
+                    rs.getDouble("duration"),
+                    rs.getInt("stock"),
+                    rs.getString("publisher"),
+                    rs.getString("platform"),
+                    rs.getString("genre")
+            );
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        }
     }
+
 }

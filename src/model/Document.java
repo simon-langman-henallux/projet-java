@@ -19,6 +19,8 @@ public class Document {
         this.person = person;
     }
 
+    public Document() {} //constructeur par défaut, vide
+
     public String getReference() {
         return reference;
     }
@@ -45,6 +47,26 @@ public class Document {
 
     public void setFinalized(boolean finalized) {
         IsFinalized = finalized;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        PaymentMethod = paymentMethod;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setPerson(int person) {
+        this.person = person;
     }
 
 }

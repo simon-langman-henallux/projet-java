@@ -15,11 +15,11 @@ public class PersonDAO implements IPersonDAO {
         try {
             conn = dataAccess.SingletonConnection.getInstance();
         } catch (SQLException e) {
-            throw new DataAccessException("personDAO Connections to Database Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
-    public void insert(Person person) {
+    public void insert(Person person) throws DataAccessException {
         String sql = "insert into person (name, firstName, phoneNumber, birthDate, boxNumber, accountNumber, streetName, streetNumber, isClient, isSupplier, zipCodeCity, nameCity, country) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, person.getName());
@@ -40,7 +40,7 @@ public class PersonDAO implements IPersonDAO {
                 throw new DataAccessException("No rows affected");
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Insert Person Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
@@ -54,7 +54,7 @@ public class PersonDAO implements IPersonDAO {
                 } else return null;
             }
         } catch  (SQLException e) {
-            throw new DataAccessException("Get Person by id Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
@@ -67,7 +67,7 @@ public class PersonDAO implements IPersonDAO {
                 persons.add(map(rs));
             }
         } catch (SQLException e) {
-            throw new DataAccessException("findAll Error");
+            throw new DataAccessException(e.getMessage());
         }
         return persons;
     }
@@ -93,7 +93,7 @@ public class PersonDAO implements IPersonDAO {
                 throw new DataAccessException("No rows affected");
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Update Person Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
     @Override
@@ -106,25 +106,29 @@ public class PersonDAO implements IPersonDAO {
                 throw new DataAccessException("No rows affected");
             }
         } catch (SQLException e) {
-            throw new DataAccessException("Delete Person Error");
+            throw new DataAccessException(e.getMessage());
         }
     }
-    private Person map(ResultSet rs) throws SQLException {
-        return new Person(
-                rs.getInt("id"),
-                rs.getString("name"),
-                rs.getString("firstName"),
-                rs.getString("phoneNumber"),
-                rs.getDate("birthDate"),
-                rs.getInt("boxNumber"),
-                rs.getString("accountNumber"),
-                rs.getString("streetName"),
-                rs.getInt("streetNumber"),
-                rs.getBoolean("isClient"),
-                rs.getBoolean("isSupplier"),
-                rs.getInt("zipCodeCity"),
-                rs.getString("nameCity"),
-                rs.getString("country")
-        );
+    private Person map(ResultSet rs) throws DataAccessException {
+        try {
+            return new Person(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("firstName"),
+                    rs.getString("phoneNumber"),
+                    rs.getDate("birthDate"),
+                    rs.getInt("boxNumber"),
+                    rs.getString("accountNumber"),
+                    rs.getString("streetName"),
+                    rs.getInt("streetNumber"),
+                    rs.getBoolean("isClient"),
+                    rs.getBoolean("isSupplier"),
+                    rs.getInt("zipCodeCity"),
+                    rs.getString("nameCity"),
+                    rs.getString("country")
+            );
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        }
     }
 }

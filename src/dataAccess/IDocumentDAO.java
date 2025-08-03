@@ -1,14 +1,15 @@
 package dataAccess;
 
+import exception.DataAccessException;
 import model.Document;
 import java.sql.SQLException;
 import java.util.List;
 
 public interface IDocumentDAO {
-    void insert(Document doc) throws SQLException;
-    Document getDocumentByReference(String ref) throws SQLException;
-    List<Document> getAllDocument() throws SQLException;
-    void update(Document doc) throws SQLException;
-    void delete(String ref) throws SQLException;
-    void finalize(Document doc) throws SQLException;
+    void insert(Document doc) throws DataAccessException;
+    Document getDocumentByReference(String ref) throws DataAccessException;
+    List<Document> getAllDocument() throws DataAccessException;
+    void update(Document doc) throws DataAccessException;
+    void delete(String ref) throws DataAccessException;
+    void finalize(Document doc) throws DataAccessException;
 }

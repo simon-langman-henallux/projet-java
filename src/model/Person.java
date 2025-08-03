@@ -46,6 +46,10 @@ public class Person {
         this(null, null, null, null, 0, null, null, 0, false, false, 0, null, null);
     }
 
+    public int getId() {
+        return id;
+    }
+
     public int getBoxNumber() {
         return boxNumber;
     }

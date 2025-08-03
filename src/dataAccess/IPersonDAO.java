@@ -1,13 +1,14 @@
 package dataAccess;
 
+import exception.DataAccessException;
 import model.Person;
 import java.sql.SQLException;
 import java.util.List;
 
 public interface IPersonDAO {
-    void insert(Person person) throws SQLException;
-    Person getPersonById(int id) throws SQLException;
-    List<Person> getAllPerson() throws SQLException;
-    void update(Person person) throws SQLException;
-    void delete(int id) throws SQLException;
+    void insert(Person person) throws DataAccessException;
+    Person getPersonById(int id) throws DataAccessException;
+    List<Person> getAllPerson() throws DataAccessException;
+    void update(Person person) throws DataAccessException;
+    void delete(int id) throws DataAccessException;
 }
