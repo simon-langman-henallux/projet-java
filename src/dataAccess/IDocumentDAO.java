@@ -10,4 +10,5 @@ public interface IDocumentDAO {
     List<Document> getAllDocument() throws SQLException;
     void update(Document doc) throws SQLException;
     void delete(String ref) throws SQLException;
+    void finalize(Document doc) throws SQLException;
 }

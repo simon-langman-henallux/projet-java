@@ -95,6 +95,17 @@ public class DocumentDAO implements IDocumentDAO {
             throw new DataAccessException("Delete Document Error");
         }
     }
+    @Override
+    public void finalize(Document doc) throws SQLException {
+        String sql = "UPDATE document SET isFinalized = ? WHERE reference = ?";
+        try (Connection conn = SingletonConnection.getInstance();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setBoolean(1, true);
+            ps.setString(2, doc.getReference());
+            ps.executeUpdate();
+        }
+    }
+
     private Document map(ResultSet rs) throws SQLException {
         return new Document(
                 rs.getString("reference"),

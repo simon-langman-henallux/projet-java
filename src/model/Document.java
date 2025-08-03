@@ -42,4 +42,9 @@ public class Document {
     public int getPerson() {
         return person;
     }
+
+    public void setFinalized(boolean finalized) {
+        IsFinalized = finalized;
+    }
+
 }
