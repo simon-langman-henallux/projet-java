@@ -5,7 +5,6 @@ import dataAccess.PersonDAO;
 import exception.DataAccessException;
 import model.Person;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class PersonService {
@@ -15,25 +14,25 @@ public class PersonService {
         this.personDAO = new PersonDAO();
     }
 
-    public void createPerson(Person person) throws DataAccessException, SQLException {
+    public void create(Person person) throws DataAccessException {
         validate(person);
         personDAO.insert(person);
     }
 
-    public Person getPersonById(int id) throws DataAccessException, SQLException {
+    public Person getPersonById(int id) throws DataAccessException {
         return personDAO.getPersonById(id);
     }
 
-    public List<Person> getAllPerson() throws DataAccessException, SQLException {
+    public List<Person> getAllPerson() throws DataAccessException {
         return personDAO.getAllPerson();
     }
 
-    public void update(Person person) throws DataAccessException, SQLException {
+    public void update(Person person) throws DataAccessException {
         validate(person);
         personDAO.update(person);
     }
 
-    public void delete(int id) throws DataAccessException, SQLException {
+    public void delete(int id) throws DataAccessException {
         personDAO.delete(id);
     }
 

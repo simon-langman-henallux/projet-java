@@ -31,4 +31,5 @@ public class StatisticsManager {
         BigDecimal avg = map.get(publisher);
         return avg != null ? avg : BigDecimal.ZERO;
     }
+
 }

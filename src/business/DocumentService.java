@@ -15,12 +15,12 @@ public class DocumentService {
         this.documentDAO = new DocumentDAO();
     }
 
-    public void createDocument(Document doc) throws DataAccessException, SQLException {
+    public void create(Document doc) throws DataAccessException {
         validate(doc);
         documentDAO.insert(doc);
     }
 
-    public void finalizeDocument(String reference) throws DataAccessException {
+    public void finalize(String reference) throws DataAccessException {
         if (reference == null || reference.isBlank()) {
             throw new DataAccessException("Document reference is required.");
         }

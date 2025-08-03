@@ -8,5 +8,3 @@ public class Launcher {
         });
     }
 }
-
-//ordre de travail : model → exception → dataAccess → business → controller → view → Launcher

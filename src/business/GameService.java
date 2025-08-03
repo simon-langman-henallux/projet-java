@@ -5,7 +5,6 @@ import dataAccess.IGameDAO;
 import exception.DataAccessException;
 import model.Game;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class GameService {
@@ -16,7 +15,7 @@ public class GameService {
         this.gameDAO = new GameDAO();
     }
 
-    public void createGame(Game game) throws DataAccessException, SQLException {
+    public void create(Game game) throws DataAccessException {
         validate(game);
         if (gameDAO.getGameByTitle(game.getTitle()) != null) {
             throw new DataAccessException("A game with this title already exists.");
@@ -24,23 +23,23 @@ public class GameService {
         gameDAO.insert(game);
     }
 
-    public void update(Game game) throws DataAccessException, SQLException {
+    public void update(Game game) throws DataAccessException {
         validate(game);
         gameDAO.update(game);
     }
 
-    public void delete(String title) throws DataAccessException, SQLException {
+    public void delete(String title) throws DataAccessException {
         if (title == null || title.isBlank()) {
             throw new DataAccessException("Game title cannot be empty.");
         }
         gameDAO.delete(title);
     }
 
-    public List<Game> getAllGames() throws DataAccessException, SQLException {
+    public List<Game> getAllGames() throws DataAccessException {
         return gameDAO.getAllGame();
     }
 
-    public Game getGameByTitle(String title) throws DataAccessException, SQLException {
+    public Game getGameByTitle(String title) throws DataAccessException {
         return gameDAO.getGameByTitle(title);
     }
 
