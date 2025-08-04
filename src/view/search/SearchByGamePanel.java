@@ -1,4 +1,4 @@
-package view;
+package view.search;
 
 import controller.SearchController;
 import dataAccess.GameDAO;

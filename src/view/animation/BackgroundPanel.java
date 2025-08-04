@@ -1,4 +1,4 @@
-package view;
+package view.animation;
 
 import javax.swing.*;
 import java.awt.*;

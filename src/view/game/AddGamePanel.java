@@ -1,4 +1,4 @@
-package view;
+package view.game;
 
 import controller.GameController;
 import exception.DataAccessException;

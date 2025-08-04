@@ -1,4 +1,4 @@
-package view;
+package view.person;
 
 import controller.PersonController;
 import exception.DataAccessException;

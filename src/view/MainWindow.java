@@ -1,5 +1,15 @@
 package view;
 
+import view.animation.AnimatedLogoPanel;
+import view.animation.BackgroundPanel;
+import view.game.AddGamePanel;
+import view.game.ListGamePanel;
+import view.person.AddPersonPanel;
+import view.person.ListPersonPanel;
+import view.search.SearchByAgePanel;
+import view.search.SearchByDatePanel;
+import view.search.SearchByGamePanel;
+
 import javax.swing.*;
 import java.awt.*;
 
