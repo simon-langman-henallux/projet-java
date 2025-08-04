@@ -3,9 +3,10 @@ package view;
 import controller.GameController;
 import exception.DataAccessException;
 import model.Game;
-
 import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.List;
 import java.util.Date;
 
 public class AddGamePanel extends JPanel {
@@ -25,9 +26,36 @@ public class AddGamePanel extends JPanel {
         JCheckBox multiplayerCheck = new JCheckBox();
         JSpinner releaseDateSpinner = new JSpinner(new SpinnerDateModel());
 
-        JComboBox<String> publisherBox = new JComboBox<>(controller.getService().getAllPublisherNames().toArray(new String[0]));
-        JComboBox<String> genreBox = new JComboBox<>(controller.getService().getAllGenreNames().toArray(new String[0]));
-        JComboBox<String> platformBox = new JComboBox<>(controller.getService().getAllPlatformNames().toArray(new String[0]));
+        JComboBox<String> publisherBox = new JComboBox<>();
+        JComboBox<String> genreBox = new JComboBox<>();
+        JComboBox<String> platformBox = new JComboBox<>();
+
+        try {
+            List<String> publishers = controller.getAllPublisherNames();
+            for (String name : publishers) {
+                publisherBox.addItem(name);
+            }
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(this, "Error loading publishers: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        try {
+            List<String> genres = controller.getGenreNames();
+            for (String name : genres) {
+                genreBox.addItem(name);
+            }
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(this, "Error loading genres: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        try {
+            List<String> platforms = controller.getPlatformNames();
+            for (String name : platforms) {
+                platformBox.addItem(name);
+            }
+        } catch (DataAccessException e) {
+            JOptionPane.showMessageDialog(this, "Error loading platforms: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
         form.add(new JLabel("Title *")); form.add(titleField);
         form.add(new JLabel("Price *")); form.add(priceField);

@@ -46,7 +46,7 @@ public class GameController {
         return service;
     }
 
-    public List<String> getPublisherNames() throws DataAccessException {
+    public List<String> getAllPublisherNames() throws DataAccessException {
         return service.getAllPublisherNames();
     }
     public List<String> getPlatformNames() throws DataAccessException {
