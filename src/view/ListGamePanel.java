@@ -19,33 +19,59 @@ public class ListGamePanel extends JPanel {
         model.setColumnIdentifiers(columns);
         table.setModel(model);
 
-        // Bouton de suppression
-        JButton deleteBtn = new JButton("Delete selected game");
+        JButton deleteButton = new JButton("Delete selected game");
 
-        deleteBtn.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if (row >= 0) {
-                String title = table.getValueAt(row, 0).toString();
+        deleteButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow >= 0) {
+                String title = table.getValueAt(selectedRow, 0).toString();
                 try {
                     controller.removeGame(title);
-                    model.removeRow(row);
-                    JOptionPane.showMessageDialog(this, "Game deleted.");
+                    controller.loadGames(table); // recharge la JTable
                 } catch (DataAccessException ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Please select a row.", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please select a row to delete.");
             }
         });
 
         add(new JScrollPane(table), BorderLayout.CENTER);
-        add(deleteBtn, BorderLayout.SOUTH);
+        add(deleteButton, BorderLayout.SOUTH);
 
-        // Charger les données
         try {
             controller.loadGames(table);
         } catch (DataAccessException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        JButton updateButton = new JButton("Update selected game");
+
+        updateButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow >= 0) {
+                String title = table.getValueAt(selectedRow, 0).toString();
+                try {
+                    var game = controller.getService().getGameByTitle(title);
+                    if (game != null) {
+                        JFrame frame = new JFrame("Edit Game");
+                        frame.setContentPane(new UpdateGame(game, controller, table));
+                        frame.pack();
+                        frame.setLocationRelativeTo(this);
+                        frame.setVisible(true);
+                    }
+                } catch (DataAccessException ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a row to update.");
+            }
+        });
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(deleteButton);
+        buttonPanel.add(updateButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
     }
 }

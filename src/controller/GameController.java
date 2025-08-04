@@ -34,8 +34,8 @@ public class GameController {
         service.create(game);
     }
 
-    public void editGame(Game game) throws DataAccessException {
-        service.update(game);
+    public void editGame(Game game, String originalTitle) throws DataAccessException {
+        service.update(game, originalTitle); // ✅
     }
 
     public void removeGame(String title) throws DataAccessException {

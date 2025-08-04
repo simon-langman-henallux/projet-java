@@ -56,21 +56,21 @@ public class GameDAO implements dataAccess.IGameDAO {
             throw new DataAccessException(e.getMessage());
         }
     }
-    @Override
-    public void update(Game game) throws DataAccessException {
-        String sql = "update game set title=?, price=?, releaseDate=?, description=?, ageRestriction=?, isMultiplayer=?, duration=?, stock=?, publisher=?, platform=?, genre=? WHERE title=?";
+    public void update(Game game, String originalTitle) throws DataAccessException {
+        String sql = "UPDATE game SET title=?, price=?, releaseDate=?, description=?, ageRestriction=?, isMultiplayer=?, duration=?, stock=?, publisher=?, platform=?, genre=? WHERE title=?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, game.getTitle());
             ps.setDouble(2, game.getPrice());
             ps.setDate(3, new java.sql.Date(game.getReleaseDate().getTime()));
-            ps.setString(4, game.getDescription());
+            ps.setObject(4, game.getDescription(), Types.VARCHAR);
             ps.setInt(5, game.getAgeRestriction());
             ps.setBoolean(6, game.isMultiplayer());
-            ps.setDouble(7, game.getDuration());
+            ps.setObject(7, game.getDuration(), Types.DOUBLE);
             ps.setInt(8, game.getStock());
-            ps.setString(9, game.getPublisher().toString());
-            ps.setString(10, game.getGenre().toString());
-            ps.setString(11, game.getTitle());
+            ps.setString(9, game.getPublisher());
+            ps.setString(10, game.getPlatform());
+            ps.setString(11, game.getGenre());
+            ps.setString(12, originalTitle);
             int affected = ps.executeUpdate();
             if (affected == 0) {
                 throw new DataAccessException("No rows affected.");

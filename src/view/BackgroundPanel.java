@@ -10,7 +10,6 @@ public class BackgroundPanel extends JPanel {
     public BackgroundPanel() {
         String path = new File("background.jpg").getAbsolutePath();
         image = new ImageIcon(path).getImage();
-        System.out.println(image.getWidth(null));
     }
 
     @Override

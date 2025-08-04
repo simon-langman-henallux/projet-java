@@ -3,28 +3,31 @@ package view;
 import controller.GameController;
 import exception.DataAccessException;
 import model.Game;
+
 import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.util.List;
+import java.awt.*;
 import java.util.Date;
+import java.util.List;
 
-public class AddGamePanel extends JPanel {
-    private final GameController controller = new GameController();
+public class UpdateGame extends JPanel {
 
-    public AddGamePanel() {
+    public UpdateGame(Game game, GameController controller, JTable tableToRefresh) {
+
+        String originalTitle = game.getTitle();
+
         setLayout(new BorderLayout());
-
         JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
 
-        JTextField titleField = new JTextField();
-        JTextField priceField = new JTextField();
-        JTextField descriptionField = new JTextField();
-        JTextField durationField = new JTextField();
-        JTextField stockField = new JTextField();
-        JTextField ageRestrictionField = new JTextField();
+        JTextField titleField = new JTextField(game.getTitle());
+        JTextField priceField = new JTextField(String.valueOf(game.getPrice()));
+        JTextField descriptionField = new JTextField(game.getDescription() == null ? "" : game.getDescription());
+        JTextField durationField = new JTextField(String.valueOf(game.getDuration()));
+        JTextField stockField = new JTextField(String.valueOf(game.getStock()));
+        JTextField ageRestrictionField = new JTextField(String.valueOf(game.getAgeRestriction()));
         JCheckBox multiplayerCheck = new JCheckBox();
+        multiplayerCheck.setSelected(game.isMultiplayer());
         JSpinner releaseDateSpinner = new JSpinner(new SpinnerDateModel());
+        releaseDateSpinner.setValue(game.getReleaseDate());
 
         JComboBox<String> publisherBox = new JComboBox<>();
         JComboBox<String> genreBox = new JComboBox<>();
@@ -35,6 +38,7 @@ public class AddGamePanel extends JPanel {
             for (String name : publishers) {
                 publisherBox.addItem(name);
             }
+            publisherBox.setSelectedItem(game.getPublisher());
         } catch (DataAccessException e) {
             JOptionPane.showMessageDialog(this, "Error loading publishers: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -44,6 +48,7 @@ public class AddGamePanel extends JPanel {
             for (String name : genres) {
                 genreBox.addItem(name);
             }
+            genreBox.setSelectedItem(game.getGenre());
         } catch (DataAccessException e) {
             JOptionPane.showMessageDialog(this, "Error loading genres: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -53,6 +58,7 @@ public class AddGamePanel extends JPanel {
             for (String name : platforms) {
                 platformBox.addItem(name);
             }
+            platformBox.setSelectedItem(game.getPlatform());
         } catch (DataAccessException e) {
             JOptionPane.showMessageDialog(this, "Error loading platforms: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -69,26 +75,14 @@ public class AddGamePanel extends JPanel {
         form.add(new JLabel("Platform : ")); form.add(platformBox);
         form.add(new JLabel("Genre : ")); form.add(genreBox);
 
-        titleField.setText("DOOM");
-        priceField.setText("20");
-        releaseDateSpinner.setModel(new SpinnerDateModel());
-        ageRestrictionField.setText("20");
-        multiplayerCheck.setSelected(true);
-        stockField.setText("25");
-        descriptionField.setText("so cool !!!");
-        durationField.setText("100");
-        publisherBox.setSelectedIndex(0);
-        platformBox.setSelectedIndex(0);
-        genreBox.setSelectedIndex(0);
-
-        JButton submit = new JButton("Create");
+        JButton submit = new JButton("Update");
         form.add(new JLabel()); form.add(submit);
 
         add(form, BorderLayout.CENTER);
 
         submit.addActionListener(e -> {
             try {
-                Game game = new Game(
+                Game updated = new Game(
                         titleField.getText(),
                         Double.parseDouble(priceField.getText()),
                         (Date) releaseDateSpinner.getValue(),
@@ -101,8 +95,10 @@ public class AddGamePanel extends JPanel {
                         genreBox.getSelectedItem().toString(),
                         platformBox.getSelectedItem().toString()
                 );
-                controller.createGame(game);
-                JOptionPane.showMessageDialog(this, "Game added.");
+                controller.editGame(updated, originalTitle);
+                controller.loadGames(tableToRefresh);
+                JOptionPane.showMessageDialog(this, "Game updated.");
+                SwingUtilities.getWindowAncestor(this).dispose();
             } catch (DataAccessException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             } catch (Exception ex) {

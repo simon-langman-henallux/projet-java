@@ -23,9 +23,9 @@ public class GameService {
         gameDAO.insert(game);
     }
 
-    public void update(Game game) throws DataAccessException {
+    public void update(Game game, String originalTitle) throws DataAccessException {
         validate(game);
-        gameDAO.update(game);
+        gameDAO.update(game, originalTitle);
     }
 
     public void delete(String title) throws DataAccessException {

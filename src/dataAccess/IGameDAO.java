@@ -10,7 +10,7 @@ import java.util.Map;
 public interface IGameDAO {
     void insert(Game game) throws DataAccessException;
     void delete(String title) throws DataAccessException;
-    void update(Game game) throws DataAccessException;
+    void update(Game game, String originalTitle) throws DataAccessException;
     Game getGameByTitle(String title) throws DataAccessException;
     List<Game> getAllGame() throws DataAccessException;
     Map<String, BigDecimal> getTotalSalesByGenre() throws DataAccessException;

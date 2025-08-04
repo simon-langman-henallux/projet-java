@@ -44,7 +44,7 @@ public class OrderManager {
         documentDAO.insert(order);
     }
 
-    public void addItemToOrder(String orderRef, Game game, int quantity) throws DataAccessException {
+    public void addItemToOrder(String orderRef, Game game, int quantity, String originalTitle) throws DataAccessException {
         if (orderRef == null || orderRef.isBlank()) {
             throw new DataAccessException("Order reference is required.");
         }
@@ -64,7 +64,7 @@ public class OrderManager {
         lineDAO.insert(line);
 
         game.setStock(game.getStock() - quantity);
-        gameDAO.update(game);
+        gameDAO.update(game, originalTitle);
     }
 
     public void completeOrder(String orderRef) throws DataAccessException {
