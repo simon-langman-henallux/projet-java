@@ -5,5 +5,6 @@
 - c'est quoi acrhitecture 3-tiers ?
 - le design pattern DAO doit attraper les SQLExceptions dans les DAO pq ? c'est quoi le découplage des couches ? c'est quoi remonter les exceptions ?
 - à quoi sert le package controller ? d'un point de vue de design pattern ?
+- sérialisation des données ? utile dans ce projet ?
 
 //ordre de travail : model → exception → dataAccess → business → controller → view → Launcher

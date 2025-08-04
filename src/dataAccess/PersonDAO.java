@@ -25,7 +25,7 @@ public class PersonDAO implements IPersonDAO {
             ps.setString(1, person.getName());
             ps.setObject(2, person.getFirstName(), Types.VARCHAR);
             ps.setString(3, person.getPhoneNumber());
-            ps.setDate(4, new java.sql.Date(person.getBirthDate().getTime())); //java.sql.Date convertit un format de date quelconque en format sql java
+            ps.setDate(4, new java.sql.Date(person.getBirthDate().getTime()));
             ps.setObject(5, person.getBoxNumber(), Types.INTEGER);
             ps.setObject(6, person.getAccountNumber(), Types.VARCHAR);
             ps.setString(7, person.getStreetName());
@@ -78,7 +78,7 @@ public class PersonDAO implements IPersonDAO {
             ps.setString(1, person.getName());
             ps.setObject(2, person.getFirstName(), Types.VARCHAR);
             ps.setString(3, person.getPhoneNumber());
-            ps.setDate(4, new java.sql.Date(person.getBirthDate().getTime())); //java.sql.Date convertit un format de date quelconque en format sql java
+            ps.setDate(4, new java.sql.Date(person.getBirthDate().getTime()));
             ps.setObject(5, person.getBoxNumber(), Types.INTEGER);
             ps.setObject(6, person.getAccountNumber(), Types.VARCHAR);
             ps.setString(7, person.getStreetName());
@@ -88,6 +88,7 @@ public class PersonDAO implements IPersonDAO {
             ps.setInt(11, person.getZipCodeCity());
             ps.setString(12, person.getNameCity());
             ps.setString(13, person.getCountry());
+            ps.setInt(14, person.getId());
             int affected = ps.executeUpdate();
             if (affected == 0) {
                 throw new DataAccessException("No rows affected");
