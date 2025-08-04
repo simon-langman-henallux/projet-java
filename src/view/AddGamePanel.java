@@ -14,7 +14,6 @@ public class AddGamePanel extends JPanel {
     public AddGamePanel() {
         setLayout(new BorderLayout());
 
-        // Champs du formulaire
         JTextField titleField = new JTextField();
         JTextField priceField = new JTextField();
         JTextField descriptionField = new JTextField();
@@ -28,7 +27,6 @@ public class AddGamePanel extends JPanel {
         JCheckBox multiplayerCheck = new JCheckBox();
         JTextField ageRestrictionField = new JTextField();
 
-        // Ajout des champs à l'écran
         add(new JLabel("Title *"));
         add(titleField);
         add(new JLabel("Price *"));
