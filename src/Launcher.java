@@ -1,10 +1,10 @@
 import javax.swing.SwingUtilities;
-import view.LauncherWindow;
+import view.MainWindow;
 
 public class Launcher {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new LauncherWindow().setVisible(true);
+            new MainWindow().setVisible(true);
         });
     }
 }

@@ -5,14 +5,14 @@ import java.awt.*;
 import java.util.Objects;
 
 public class AnimatedLogoPanel extends JPanel implements Runnable {
-    private final int width = 100;
-    private final int height = 100;
     private int x = 100, y = 100;
     private int dx = 2, dy = 2;
-    private final int logoSize = 120;
+    private final int logoSize = 200;
     private final Image logo;
 
     public AnimatedLogoPanel() {
+        int width = 100;
+        int height = 100;
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.BLACK);
         logo = loadLogoImage();
@@ -20,7 +20,7 @@ public class AnimatedLogoPanel extends JPanel implements Runnable {
     }
 
     private Image loadLogoImage() {
-        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/AlienCat.jpg")));
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/manette.jpg")));
         return icon.getImage().getScaledInstance(logoSize, logoSize, Image.SCALE_SMOOTH);
     }
 
