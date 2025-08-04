@@ -16,6 +16,7 @@ import java.awt.*;
 public class MainWindow extends JFrame {
 
     public MainWindow() {
+
         setTitle("Game Store Manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -29,6 +30,10 @@ public class MainWindow extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
+        JLabel welcome = new JLabel("Welcome to Game Store Manager");
+        welcome.setBounds(10, 10, width, height);
+        welcome.setOpaque(true);
+        welcome.setForeground(Color.white);
 
         AnimatedLogoPanel animatedLogo = new AnimatedLogoPanel();
         animatedLogo.setBounds(0, 0, width, height);
