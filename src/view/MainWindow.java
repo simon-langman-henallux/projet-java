@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
 public class MainWindow extends JFrame {
     private final CardLayout layout;
@@ -19,9 +18,9 @@ public class MainWindow extends JFrame {
         setContentPane(layeredPane);
         layeredPane.setLayout(null);
 
-        BackgroundPanel backgroundPanel = new BackgroundPanel();
-        backgroundPanel.setBounds(0, 0, getWidth(), getHeight());
-        layeredPane.add(backgroundPanel, JLayeredPane.DEFAULT_LAYER);
+        BackgroundPanel background = new BackgroundPanel();
+        background.setBounds(0, 0, getWidth(), getHeight());
+        layeredPane.add(background, JLayeredPane.DEFAULT_LAYER);
 
         AnimatedLogoPanel animatedLogo = new AnimatedLogoPanel();
         animatedLogo.setBounds(0, 0, getWidth(), getHeight());
@@ -33,41 +32,54 @@ public class MainWindow extends JFrame {
         container.setBounds(0, 0, getWidth(), getHeight());
         layeredPane.add(container, JLayeredPane.MODAL_LAYER);
 
-        container.add(new AddGamePanel(), "add game");
-        container.add(new ListGamePanel(), "list all game");
+        container.add(new AddGamePanel(), "addGame");
+        container.add(new ListGamePanel(), "listGame");
+        container.add(new AddPersonPanel(), "addPerson");
+        container.add(new ListPersonPanel(), "listPerson");
+        container.add(new SearchByGamePanel(), "searchGame");
+        container.add(new SearchByAgePanel(), "searchAge");
+        container.add(new SearchByDatePanel(), "searchDate");
 
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         JMenu menu = new JMenu("Menu");
         menuBar.add(menu);
 
-        JMenuItem welcome= new JMenuItem("Welcome");
-        welcome.addActionListener(e -> layout.show(container, "welcome"));
-        menu.add(welcome);
+        JMenuItem listGames = new JMenuItem("List Games");
+        listGames.addActionListener(e -> layout.show(container, "listGame"));
+        menu.add(listGames);
 
         JMenuItem addGame = new JMenuItem("Add Game");
-        addGame.addActionListener(e -> layout.show(container, "add game"));
+        addGame.addActionListener(e -> layout.show(container, "addGame"));
         menu.add(addGame);
+
+        JMenuItem listPersons = new JMenuItem("List Persons");
+        listPersons.addActionListener(e -> layout.show(container, "listPerson"));
+        menu.add(listPersons);
+
+        JMenuItem addPerson = new JMenuItem("Add Person");
+        addPerson.addActionListener(e -> layout.show(container, "addPerson"));
+        menu.add(addPerson);
+
+        JMenu search = new JMenu("Search");
+        menu.add(search);
+
+        JMenuItem searchGame = new JMenuItem("By Game");
+        searchGame.addActionListener(e -> layout.show(container, "searchGame"));
+        search.add(searchGame);
+
+        JMenuItem searchAge = new JMenuItem("By Age & Country");
+        searchAge.addActionListener(e -> layout.show(container, "searchAge"));
+        search.add(searchAge);
+
+        JMenuItem searchDate = new JMenuItem("By Date");
+        searchDate.addActionListener(e -> layout.show(container, "searchDate"));
+        search.add(searchDate);
 
         JMenuItem quit = new JMenuItem("Quit");
         quit.addActionListener(e -> System.exit(0));
         menu.add(quit);
 
-        layout.show(container, "welcome");
+        layout.show(container, "listGame");
     }
-
-    public static class BackgroundPanel extends JPanel {
-        private final Image background;
-
-        public BackgroundPanel() {
-            background = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background.jpg"))).getImage();
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
-        }
-    }
-
 }
