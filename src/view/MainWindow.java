@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
-    private final CardLayout layout;
-    private final JPanel container;
 
     public MainWindow() {
         setTitle("Game Store Manager");
@@ -14,72 +12,64 @@ public class MainWindow extends JFrame {
         setUndecorated(false);
         setLocationRelativeTo(null);
 
-        JLayeredPane layeredPane = new JLayeredPane();
-        setContentPane(layeredPane);
-        layeredPane.setLayout(null);
+        BackgroundPanel backgroundPanel = new BackgroundPanel();
+        backgroundPanel.setLayout(null);
+        setContentPane(backgroundPanel);
 
-        BackgroundPanel background = new BackgroundPanel();
-        background.setBounds(0, 0, getWidth(), getHeight());
-        layeredPane.add(background, JLayeredPane.DEFAULT_LAYER);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = screenSize.width;
+        int height = screenSize.height;
 
         AnimatedLogoPanel animatedLogo = new AnimatedLogoPanel();
-        animatedLogo.setBounds(0, 0, getWidth(), getHeight());
-        layeredPane.add(animatedLogo, JLayeredPane.PALETTE_LAYER);
-
-        layout = new CardLayout();
-        container = new JPanel(layout);
-        container.setOpaque(false);
-        container.setBounds(0, 0, getWidth(), getHeight());
-        layeredPane.add(container, JLayeredPane.MODAL_LAYER);
-
-        container.add(new AddGamePanel(), "addGame");
-        container.add(new ListGamePanel(), "listGame");
-        container.add(new AddPersonPanel(), "addPerson");
-        container.add(new ListPersonPanel(), "listPerson");
-        container.add(new SearchByGamePanel(), "searchGame");
-        container.add(new SearchByAgePanel(), "searchAge");
-        container.add(new SearchByDatePanel(), "searchDate");
+        animatedLogo.setBounds(0, 0, width, height);
+        backgroundPanel.add(animatedLogo);
 
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
-        JMenu menu = new JMenu("Menu");
-        menuBar.add(menu);
 
-        JMenuItem listGames = new JMenuItem("List Games");
-        listGames.addActionListener(e -> layout.show(container, "listGame"));
-        menu.add(listGames);
+        JMenu gameManager = new JMenu("game manager");
+        JMenuItem addGame = new JMenuItem("add game");
+        JMenuItem listGame = new JMenuItem("list all games");
+        menuBar.add(gameManager);
+        gameManager.add(addGame);
+        addGame.addActionListener(e -> openWindowWithPanel(new AddGamePanel(), "Add Game"));
+        gameManager.add(listGame);
+        listGame.addActionListener(e -> openWindowWithPanel(new ListGamePanel(), "List Games"));
 
-        JMenuItem addGame = new JMenuItem("Add Game");
-        addGame.addActionListener(e -> layout.show(container, "addGame"));
-        menu.add(addGame);
+        JMenu personManager = new JMenu("person manager");
+        JMenuItem addPerson = new JMenuItem("add person");
+        JMenuItem listPerson = new JMenuItem("list all persons");
+        menuBar.add(personManager);
+        personManager.add(addPerson);
+        addPerson.addActionListener(e -> openWindowWithPanel(new AddPersonPanel(), "Add Person"));
+        personManager.add(listPerson);
+        listPerson.addActionListener(e -> openWindowWithPanel(new ListPersonPanel(), "List Persons"));
 
-        JMenuItem listPersons = new JMenuItem("List Persons");
-        listPersons.addActionListener(e -> layout.show(container, "listPerson"));
-        menu.add(listPersons);
+        JMenu searchManager = new JMenu("search manager");
+        JMenuItem searchByAge = new JMenuItem("search by age");
+        JMenuItem searchByDate = new JMenuItem("search by date");
+        JMenuItem searchByGame = new JMenuItem("search by game");
+        menuBar.add(searchManager);
+        searchManager.add(searchByAge);
+        searchByAge.addActionListener(e -> openWindowWithPanel(new SearchByAgePanel(), "Search by Age"));
+        searchManager.add(searchByDate);
+        searchByDate.addActionListener(e -> openWindowWithPanel(new SearchByDatePanel(), "Search by Date"));
+        searchManager.add(searchByGame);
+        searchByGame.addActionListener(e -> openWindowWithPanel(new SearchByGamePanel(), "Search by Game"));
 
-        JMenuItem addPerson = new JMenuItem("Add Person");
-        addPerson.addActionListener(e -> layout.show(container, "addPerson"));
-        menu.add(addPerson);
+        JMenuItem exit = new JMenuItem("exit");
+        menuBar.add(exit);
+        exit.addActionListener(e -> System.exit(0));
 
-        JMenu search = new JMenu("Search");
-        menu.add(search);
-
-        JMenuItem searchGame = new JMenuItem("By Game");
-        searchGame.addActionListener(e -> layout.show(container, "searchGame"));
-        search.add(searchGame);
-
-        JMenuItem searchAge = new JMenuItem("By Age & Country");
-        searchAge.addActionListener(e -> layout.show(container, "searchAge"));
-        search.add(searchAge);
-
-        JMenuItem searchDate = new JMenuItem("By Date");
-        searchDate.addActionListener(e -> layout.show(container, "searchDate"));
-        search.add(searchDate);
-
-        JMenuItem quit = new JMenuItem("Quit");
-        quit.addActionListener(e -> System.exit(0));
-        menu.add(quit);
-
-        layout.show(container, "listGame");
     }
+
+    private void openWindowWithPanel(JPanel panel, String title) {
+        JFrame frame = new JFrame(title);
+        frame.setContentPane(panel);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
 }

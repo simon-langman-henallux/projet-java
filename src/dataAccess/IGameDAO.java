@@ -15,4 +15,7 @@ public interface IGameDAO {
     List<Game> getAllGame() throws DataAccessException;
     Map<String, BigDecimal> getTotalSalesByGenre() throws DataAccessException;
     Map<String, BigDecimal> getAveragePriceByPublisher() throws DataAccessException;
+    List<String> getAllPublisherNames() throws DataAccessException;
+    List<String> getAllPlatformNames() throws DataAccessException;
+    List<String> getAllGenreNames() throws DataAccessException;
 }

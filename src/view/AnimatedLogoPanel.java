@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
+import java.io.File;
 
 public class AnimatedLogoPanel extends JPanel implements Runnable {
     private int x = 100, y = 100;
@@ -15,12 +15,14 @@ public class AnimatedLogoPanel extends JPanel implements Runnable {
         int height = 100;
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.BLACK);
+        setOpaque(false);
         logo = loadLogoImage();
         new Thread(this).start();
     }
 
     private Image loadLogoImage() {
-        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/manette.jpg")));
+        String path = new File("manette.jpg").getAbsolutePath();
+        ImageIcon icon = new ImageIcon(path);
         return icon.getImage().getScaledInstance(logoSize, logoSize, Image.SCALE_SMOOTH);
     }
 

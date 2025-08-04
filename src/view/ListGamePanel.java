@@ -15,7 +15,6 @@ public class ListGamePanel extends JPanel {
     public ListGamePanel() {
         setLayout(new BorderLayout());
 
-        // Configuration du tableau
         String[] columns = {"Title", "Price", "Release Date", "Age", "Multiplayer", "Stock"};
         model.setColumnIdentifiers(columns);
         table.setModel(model);

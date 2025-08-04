@@ -2,18 +2,25 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
+import java.io.File;
 
 public class BackgroundPanel extends JPanel {
     private final Image image;
 
     public BackgroundPanel() {
-        image = new ImageIcon(Objects.requireNonNull(getClass().getResource("/images/background.jpg"))).getImage();
+        String path = new File("background.jpg").getAbsolutePath();
+        image = new ImageIcon(path).getImage();
+        System.out.println(image.getWidth(null));
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+        if (image != null) {
+            g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+        }
     }
+
+
+
 }

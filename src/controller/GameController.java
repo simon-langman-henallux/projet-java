@@ -45,4 +45,15 @@ public class GameController {
     public GameService getService() {
         return service;
     }
+
+    public List<String> getPublisherNames() throws DataAccessException {
+        return service.getAllPublisherNames();
+    }
+    public List<String> getPlatformNames() throws DataAccessException {
+        return service.getAllPlatformNames();
+    }
+    public List<String> getGenreNames() throws DataAccessException {
+        return service.getAllGenreNames();
+    }
+
 }

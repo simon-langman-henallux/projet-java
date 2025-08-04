@@ -14,44 +14,37 @@ public class AddGamePanel extends JPanel {
     public AddGamePanel() {
         setLayout(new BorderLayout());
 
+        JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
+
         JTextField titleField = new JTextField();
         JTextField priceField = new JTextField();
         JTextField descriptionField = new JTextField();
         JTextField durationField = new JTextField();
         JTextField stockField = new JTextField();
-        JTextField publisherField = new JTextField();
-        JTextField genreField = new JTextField();
-        JTextField platformField = new JTextField();
-
-        JSpinner releaseDateSpinner = new JSpinner(new SpinnerDateModel());
-        JCheckBox multiplayerCheck = new JCheckBox();
         JTextField ageRestrictionField = new JTextField();
+        JCheckBox multiplayerCheck = new JCheckBox();
+        JSpinner releaseDateSpinner = new JSpinner(new SpinnerDateModel());
 
-        add(new JLabel("Title *"));
-        add(titleField);
-        add(new JLabel("Price *"));
-        add(priceField);
-        add(new JLabel("Release Date *"));
-        add(releaseDateSpinner);
-        add(new JLabel("Age Restriction *"));
-        add(ageRestrictionField);
-        add(new JLabel("Multiplayer *"));
-        add(multiplayerCheck);
-        add(new JLabel("Stock *"));
-        add(stockField);
-        add(new JLabel("Description"));
-        add(descriptionField);
-        add(new JLabel("Duration"));
-        add(durationField);
-        add(new JLabel("Publisher *"));
-        add(publisherField);
-        add(new JLabel("Platform *"));
-        add(platformField);
-        add(new JLabel("Genre *"));
-        add(genreField);
+        JComboBox<String> publisherBox = new JComboBox<>(controller.getService().getAllPublisherNames().toArray(new String[0]));
+        JComboBox<String> genreBox = new JComboBox<>(controller.getService().getAllGenreNames().toArray(new String[0]));
+        JComboBox<String> platformBox = new JComboBox<>(controller.getService().getAllPlatformNames().toArray(new String[0]));
+
+        form.add(new JLabel("Title *")); form.add(titleField);
+        form.add(new JLabel("Price *")); form.add(priceField);
+        form.add(new JLabel("Release Date *")); form.add(releaseDateSpinner);
+        form.add(new JLabel("Age Restriction *")); form.add(ageRestrictionField);
+        form.add(new JLabel("Multiplayer *")); form.add(multiplayerCheck);
+        form.add(new JLabel("Stock *")); form.add(stockField);
+        form.add(new JLabel("Description")); form.add(descriptionField);
+        form.add(new JLabel("Duration")); form.add(durationField);
+        form.add(new JLabel("Publisher *")); form.add(publisherBox);
+        form.add(new JLabel("Platform *")); form.add(platformBox);
+        form.add(new JLabel("Genre *")); form.add(genreBox);
 
         JButton submit = new JButton("Create");
-        add(submit);
+        form.add(new JLabel()); form.add(submit);
+
+        add(form, BorderLayout.CENTER);
 
         submit.addActionListener(e -> {
             try {
@@ -64,9 +57,9 @@ public class AddGamePanel extends JPanel {
                         multiplayerCheck.isSelected(),
                         durationField.getText().isBlank() ? 0 : Double.parseDouble(durationField.getText()),
                         Integer.parseInt(stockField.getText()),
-                        publisherField.getText(),
-                        genreField.getText(),
-                        platformField.getText()
+                        publisherBox.getSelectedItem().toString(),
+                        genreBox.getSelectedItem().toString(),
+                        platformBox.getSelectedItem().toString()
                 );
                 controller.createGame(game);
                 JOptionPane.showMessageDialog(this, "Game added.");

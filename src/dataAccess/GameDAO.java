@@ -108,6 +108,48 @@ public class GameDAO implements dataAccess.IGameDAO {
         return games;
     }
 
+    public List<String> getAllPublisherNames() throws DataAccessException {
+        List<String> result = new ArrayList<>();
+        String sql = "SELECT name FROM publisher ORDER BY name";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                result.add(rs.getString("name"));
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Error loading publishers: " + e.getMessage());
+        }
+        return result;
+    }
+
+    public List<String> getAllPlatformNames() throws DataAccessException {
+        List<String> result = new ArrayList<>();
+        String sql = "SELECT name FROM platform ORDER BY name";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                result.add(rs.getString("name"));
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Error loading platforms: " + e.getMessage());
+        }
+        return result;
+    }
+
+    public List<String> getAllGenreNames() throws DataAccessException {
+        List<String> result = new ArrayList<>();
+        String sql = "SELECT name FROM genre ORDER BY name";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                result.add(rs.getString("name"));
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Error loading genres: " + e.getMessage());
+        }
+        return result;
+    }
+
     @Override
     public Map<String, BigDecimal> getTotalSalesByGenre() throws DataAccessException {
         String sql = "select g.genre, sum(dl.quantity * dl.unitPrice) as total from documentline dl join game g on g.title = dl.game join document d on d.reference = dl.document where d.type = 'Sale' group by g.genre";

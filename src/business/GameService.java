@@ -64,4 +64,16 @@ public class GameService {
         }
     }
 
+    public List<String> getAllPublisherNames() throws DataAccessException {
+        return gameDAO.getAllPublisherNames();
+    }
+
+    public List<String> getAllPlatformNames() throws DataAccessException {
+        return gameDAO.getAllPlatformNames();
+    }
+
+    public List<String> getAllGenreNames() throws DataAccessException {
+        return gameDAO.getAllGenreNames();
+    }
+
 }
