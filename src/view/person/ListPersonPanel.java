@@ -17,8 +17,9 @@ public class ListPersonPanel extends JPanel {
         setLayout(new BorderLayout());
 
         String[] columns = {
-                "ID", "Name", "First Name", "Phone", "Birth Date", "Street", "No", "Zip", "City", "Country", "Client", "Supplier"
+                "id", "name", "first name", "phone", "birth date", "street", "no", "zip", "city", "country", "is a client", "is a supplier"
         };
+
         model.setColumnIdentifiers(columns);
         table.setModel(model);
 

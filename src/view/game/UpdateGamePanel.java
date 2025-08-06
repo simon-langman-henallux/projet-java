@@ -9,9 +9,9 @@ import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
-public class UpdateGame extends JPanel {
+public class UpdateGamePanel extends JPanel {
 
-    public UpdateGame(Game game, GameController controller, JTable tableToRefresh) {
+    public UpdateGamePanel(Game game, GameController controller, JTable tableToRefresh) {
 
         String originalTitle = game.getTitle();
 

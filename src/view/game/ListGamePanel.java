@@ -64,7 +64,7 @@ public class ListGamePanel extends JPanel {
                     var game = controller.getService().getGameByTitle(title);
                     if (game != null) {
                         JFrame frame = new JFrame("Edit Game");
-                        frame.setContentPane(new UpdateGame(game, controller, table));
+                        frame.setContentPane(new UpdateGamePanel(game, controller, table));
                         frame.pack();
                         frame.setLocationRelativeTo(this);
                         frame.setVisible(true);

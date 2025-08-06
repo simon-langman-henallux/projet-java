@@ -14,7 +14,6 @@ public class AddPersonPanel extends JPanel {
     public AddPersonPanel() {
         setLayout(new BorderLayout());
 
-        // Champs
         JTextField nameField = new JTextField();
         JTextField firstNameField = new JTextField();
         JTextField phoneField = new JTextField();
@@ -29,7 +28,6 @@ public class AddPersonPanel extends JPanel {
         JTextField boxNumberField = new JTextField();
         JTextField accountNumberField = new JTextField();
 
-        // Ajout des labels et champs
         add(new JLabel("Name *"));
         add(nameField);
         add(new JLabel("First Name"));
