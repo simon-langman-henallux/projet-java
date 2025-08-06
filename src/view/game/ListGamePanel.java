@@ -14,7 +14,7 @@ public class ListGamePanel extends JPanel {
     public ListGamePanel() {
         setLayout(new BorderLayout());
 
-        String[] columns = {"title listGame", "price listGame", "release date listGame", "age minimum listGame", "multiplayer listGame", "stock listGame"};//à quoi ça sert si c'est le controller qui affiche ?
+        String[] columns = {"title", "price", "release date", "age minimum", "multiplayer", "duration", "stock", "publisher", "genre", "platform"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         table.setModel(model);
@@ -25,7 +25,21 @@ public class ListGamePanel extends JPanel {
         add(deleteButton, BorderLayout.SOUTH);
 
         try {
-            controller.loadGames(table);
+            var games = controller.getAllGames();
+            for (var g : games) {
+                model.addRow(new Object[]{
+                        g.getTitle(),
+                        g.getPrice(),
+                        g.getReleaseDate(),
+                        g.getAgeRestriction(),
+                        g.isMultiplayer(),
+                        g.getDuration(),
+                        g.getStock(),
+                        g.getPublisher(),
+                        g.getGenre(),
+                        g.getPlatform()
+                });
+            }
         } catch (DataAccessException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -74,7 +88,21 @@ public class ListGamePanel extends JPanel {
                 String title = table.getValueAt(selectedRow, 0).toString();
                 try {
                     controller.removeGame(title);
-                    controller.loadGames(table); // recharge la JTable
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    model.setRowCount(0);
+
+                    var games = controller.getAllGames();
+                    for (var g : games) {
+                        model.addRow(new Object[]{
+                                g.getTitle(),
+                                g.getPrice(),
+                                g.getReleaseDate(),
+                                g.getAgeRestriction(),
+                                g.isMultiplayer(),
+                                g.getStock()
+                        });
+                    }
+
                 } catch (DataAccessException ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -84,4 +112,5 @@ public class ListGamePanel extends JPanel {
         });
         return deleteButton;
     }
+
 }

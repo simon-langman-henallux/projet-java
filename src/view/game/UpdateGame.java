@@ -96,7 +96,7 @@ public class UpdateGame extends JPanel {
                         platformBox.getSelectedItem().toString()
                 );
                 controller.editGame(updated, originalTitle);
-                controller.loadGames(tableToRefresh);
+                controller.getAllGames();
                 JOptionPane.showMessageDialog(this, "Game updated.");
                 SwingUtilities.getWindowAncestor(this).dispose();
             } catch (DataAccessException ex) {
