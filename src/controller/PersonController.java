@@ -11,26 +11,8 @@ import java.util.List;
 public class PersonController {
     private final PersonService service = new PersonService();
 
-    public void loadPersons(JTable table) throws DataAccessException {
-        List<Person> persons = service.getAllPerson();
-        String[] columns = {"ID", "Name", "First Name", "Phone", "Birth Date", "Street", "Number", "Client", "Supplier"};
-        DefaultTableModel model = new DefaultTableModel(columns, 0);
-
-        for (Person p : persons) {
-            model.addRow(new Object[]{
-                    p.getId(),
-                    p.getName(),
-                    p.getFirstName(),
-                    p.getPhoneNumber(),
-                    p.getBirthDate(),
-                    p.getStreetName(),
-                    p.getStreetNumber(),
-                    p.isClient(),
-                    p.isSupplier()
-            });
-        }
-
-        table.setModel(model);
+    public List<Person> getAllPersons() throws DataAccessException {
+        return service.getAllPerson();
     }
 
     public void createPerson(Person person) throws DataAccessException {

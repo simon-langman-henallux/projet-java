@@ -5,6 +5,7 @@ import exception.DataAccessException;
 import model.Game;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Date;
 import java.util.List;
@@ -96,14 +97,36 @@ public class UpdateGamePanel extends JPanel {
                         platformBox.getSelectedItem().toString()
                 );
                 controller.editGame(updated, originalTitle);
-                controller.getAllGames();
+
+                refreshTable(tableToRefresh, controller);
                 JOptionPane.showMessageDialog(this, "Game updated.");
                 SwingUtilities.getWindowAncestor(this).dispose();
+
             } catch (DataAccessException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Invalid input.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+    }
+
+    private void refreshTable(JTable table, GameController controller) {
+        try {
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0);
+            var games = controller.getAllGames();
+            for (var g : games) {
+                model.addRow(new Object[]{
+                        g.getTitle(),
+                        g.getPrice(),
+                        g.getReleaseDate(),
+                        g.getAgeRestriction(),
+                        g.isMultiplayer(),
+                        g.getStock()
+                });
+            }
+        } catch (DataAccessException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

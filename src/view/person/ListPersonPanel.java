@@ -49,14 +49,7 @@ public class ListPersonPanel extends JPanel {
                 try {
                     Person existing = controller.getService().getPersonById(id);
                     JFrame editFrame = new JFrame("Edit Person");
-                    editFrame.setContentPane(new UpdatePersonPanel(existing, () -> {
-                        try {
-                            controller.loadPersons(table);
-                            editFrame.dispose();
-                        } catch (DataAccessException ex) {
-                            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }));
+                    editFrame.setContentPane(new UpdatePersonPanel(existing, this::refreshTable));
                     editFrame.pack();
                     editFrame.setLocationRelativeTo(this);
                     editFrame.setVisible(true);
@@ -76,9 +69,36 @@ public class ListPersonPanel extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
 
         try {
-            controller.loadPersons(table);
+            refreshTable();
         } catch (DataAccessException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    private void refreshTable() {
+        try {
+            model.setRowCount(0);
+            var persons = controller.getAllPersons();
+            for (var p : persons) {
+                model.addRow(new Object[]{
+                        p.getId(),
+                        p.getName(),
+                        p.getFirstName(),
+                        p.getPhoneNumber(),
+                        p.getBirthDate(),
+                        p.getStreetName(),
+                        p.getStreetNumber(),
+                        p.getZipCodeCity(),
+                        p.getNameCity(),
+                        p.getCountry(),
+                        p.isClient(),
+                        p.isSupplier()
+                });
+            }
+        } catch (DataAccessException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error refresh", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
 }

@@ -9,9 +9,11 @@ import java.awt.*;
 import java.util.Date;
 
 public class UpdatePersonPanel extends JPanel {
+
     private final PersonController controller = new PersonController();
 
     public UpdatePersonPanel(Person existingPerson, Runnable onUpdateCallback) {
+
         setLayout(new BorderLayout());
 
         JTextField nameField = new JTextField(existingPerson.getName());
@@ -29,19 +31,19 @@ public class UpdatePersonPanel extends JPanel {
         JTextField accountNumberField = new JTextField(existingPerson.getAccountNumber() != null ? existingPerson.getAccountNumber() : "");
 
         JPanel form = new JPanel(new GridLayout(0, 2));
-        form.add(new JLabel("Name *")); form.add(nameField);
-        form.add(new JLabel("First Name")); form.add(firstNameField);
-        form.add(new JLabel("Phone *")); form.add(phoneField);
-        form.add(new JLabel("Birth Date *")); form.add(birthDateSpinner);
-        form.add(new JLabel("Street Name *")); form.add(streetNameField);
-        form.add(new JLabel("Street Number *")); form.add(streetNumberField);
-        form.add(new JLabel("Zip Code *")); form.add(zipCodeField);
-        form.add(new JLabel("City Name *")); form.add(cityNameField);
-        form.add(new JLabel("Country *")); form.add(countryField);
-        form.add(new JLabel("Is Client *")); form.add(isClientCheck);
-        form.add(new JLabel("Is Supplier *")); form.add(isSupplierCheck);
-        form.add(new JLabel("Box Number")); form.add(boxNumberField);
-        form.add(new JLabel("Account Number")); form.add(accountNumberField);
+        form.add(new JLabel("Name : ")); form.add(nameField);
+        form.add(new JLabel("First Name : ")); form.add(firstNameField);
+        form.add(new JLabel("Phone : ")); form.add(phoneField);
+        form.add(new JLabel("Birth Date : ")); form.add(birthDateSpinner);
+        form.add(new JLabel("Street Name  :")); form.add(streetNameField);
+        form.add(new JLabel("Street Number : ")); form.add(streetNumberField);
+        form.add(new JLabel("Zip Code : ")); form.add(zipCodeField);
+        form.add(new JLabel("City Name : ")); form.add(cityNameField);
+        form.add(new JLabel("Country : ")); form.add(countryField);
+        form.add(new JLabel("Is Client : ")); form.add(isClientCheck);
+        form.add(new JLabel("Is Supplier : ")); form.add(isSupplierCheck);
+        form.add(new JLabel("Box Number : ")); form.add(boxNumberField);
+        form.add(new JLabel("Account Number : ")); form.add(accountNumberField);
 
         JButton updateBtn = new JButton("Update");
         updateBtn.addActionListener(e -> {

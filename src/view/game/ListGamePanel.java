@@ -13,7 +13,6 @@ public class ListGamePanel extends JPanel {
 
     public ListGamePanel() {
         setLayout(new BorderLayout());
-
         String[] columns = {"title", "price", "release date", "age minimum", "multiplayer", "duration", "stock", "publisher", "genre", "platform"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
