@@ -13,7 +13,7 @@ public class GameController {
 
     public void loadGames(JTable table) throws DataAccessException {
         List<Game> games = service.getAllGames();
-        String[] columns = {"Title", "Price", "Release Date", "Age", "Multiplayer", "Stock"};
+        String[] columns = {"title Controller", "price Controller", "release date Controller", "age Controller", "multiplayer Controller", "stock Controller"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
 
         for (Game g : games) {
@@ -35,7 +35,7 @@ public class GameController {
     }
 
     public void editGame(Game game, String originalTitle) throws DataAccessException {
-        service.update(game, originalTitle); // ✅
+        service.update(game, originalTitle);
     }
 
     public void removeGame(String title) throws DataAccessException {

@@ -8,3 +8,4 @@
 - sérialisation des données ? utile dans ce projet ?
 
 //ordre de travail : model → exception → dataAccess → business → controller → view → Launcher
+// !!!!! gérer la suppression des jeux et personnes avec les documents.

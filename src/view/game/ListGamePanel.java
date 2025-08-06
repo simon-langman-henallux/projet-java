@@ -10,31 +10,16 @@ import java.awt.*;
 public class ListGamePanel extends JPanel {
     private final GameController controller = new GameController();
     private final JTable table = new JTable();
-    private final DefaultTableModel model = new DefaultTableModel();
 
     public ListGamePanel() {
         setLayout(new BorderLayout());
 
-        String[] columns = {"Title", "Price", "Release Date", "Age", "Multiplayer", "Stock"};
+        String[] columns = {"title listGame", "price listGame", "release date listGame", "age minimum listGame", "multiplayer listGame", "stock listGame"};//à quoi ça sert si c'est le controller qui affiche ?
+        DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         table.setModel(model);
 
-        JButton deleteButton = new JButton("Delete selected game");
-
-        deleteButton.addActionListener(e -> {
-            int selectedRow = table.getSelectedRow();
-            if (selectedRow >= 0) {
-                String title = table.getValueAt(selectedRow, 0).toString();
-                try {
-                    controller.removeGame(title);
-                    controller.loadGames(table); // recharge la JTable
-                } catch (DataAccessException ex) {
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Please select a row to delete.");
-            }
-        });
+        JButton deleteButton = getDeleteButton();
 
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(deleteButton, BorderLayout.SOUTH);
@@ -45,6 +30,16 @@ public class ListGamePanel extends JPanel {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
+        JButton updateButton = getUpdateButton();
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(deleteButton);
+        buttonPanel.add(updateButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+    }
+
+    private JButton getUpdateButton() {
         JButton updateButton = new JButton("Update selected game");
 
         updateButton.addActionListener(e -> {
@@ -67,11 +62,26 @@ public class ListGamePanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Please select a row to update.");
             }
         });
+        return updateButton;
+    }
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(deleteButton);
-        buttonPanel.add(updateButton);
-        add(buttonPanel, BorderLayout.SOUTH);
+    private JButton getDeleteButton() {
+        JButton deleteButton = new JButton("Delete selected game");
 
+        deleteButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow >= 0) {
+                String title = table.getValueAt(selectedRow, 0).toString();
+                try {
+                    controller.removeGame(title);
+                    controller.loadGames(table); // recharge la JTable
+                } catch (DataAccessException ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a row to delete.");
+            }
+        });
+        return deleteButton;
     }
 }

@@ -11,7 +11,7 @@ import model.Game;
 
 public class GameDAO implements dataAccess.IGameDAO {
 
-    private Connection conn;
+    private final Connection conn;
 
     public GameDAO() throws DataAccessException {
         try {

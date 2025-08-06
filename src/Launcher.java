@@ -7,4 +7,11 @@ public class Launcher {
             new MainWindow().setVisible(true);
         });
     }
+
+    public void refresh(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new MainWindow().setVisible(true);
+        });
+    }
+
 }
