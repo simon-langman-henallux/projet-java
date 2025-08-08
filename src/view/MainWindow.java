@@ -1,7 +1,5 @@
 package view;
 
-import com.mysql.cj.xdevapi.DatabaseObject;
-import com.sun.tools.javac.Main;
 import view.animation.AnimatedLogoPanel;
 import view.animation.BackgroundPanel;
 import view.game.AddGamePanel;
@@ -11,7 +9,6 @@ import view.person.ListPersonPanel;
 import view.search.SearchByAgePanel;
 import view.search.SearchByDatePanel;
 import view.search.SearchByGamePanel;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,7 +19,6 @@ public class MainWindow extends JFrame {
         setTitle("Game Store Manager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(false);
         setLocationRelativeTo(null);
 
         BackgroundPanel backgroundPanel = new BackgroundPanel();
@@ -34,8 +30,6 @@ public class MainWindow extends JFrame {
         int height = screenSize.height;
         JLabel welcome = new JLabel("Welcome to Game Store Manager");
         welcome.setBounds(10, 10, width, height);
-        welcome.setOpaque(true);
-        welcome.setForeground(Color.white);
 
         AnimatedLogoPanel animatedLogo = new AnimatedLogoPanel();
         animatedLogo.setBounds(0, 0, width, height);

@@ -2,16 +2,17 @@ package view.game;
 
 import controller.GameController;
 import exception.DataAccessException;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class ListGamePanel extends JPanel {
+
     private final GameController controller = new GameController();
     private final JTable table = new JTable();
 
     public ListGamePanel() {
+
         setLayout(new BorderLayout());
         String[] columns = {"title", "price", "release date", "age minimum", "multiplayer", "duration", "stock", "publisher", "genre", "platform"};
         DefaultTableModel model = new DefaultTableModel();

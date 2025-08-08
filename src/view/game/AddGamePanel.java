@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Date;
 
 public class AddGamePanel extends JPanel {
+
     private final GameController controller = new GameController();
 
     public AddGamePanel() {
+
         setLayout(new BorderLayout());
 
         JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
