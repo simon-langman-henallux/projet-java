@@ -25,7 +25,7 @@ public class DocumentDAO implements IDocumentDAO {
             ps.setString(1, doc.getReference());
             ps.setDate(2, new java.sql.Date(doc.getDate().getTime()));
             ps.setString(3, doc.getPaymentMethod());
-            ps.setObject(4, doc.isFinalized(), Types.BOOLEAN);
+            ps.setBoolean(4, doc.isFinalized());
             ps.setString(5, doc.getType());
             ps.setInt(6, doc.getPerson());
             int affected = ps.executeUpdate();
@@ -94,11 +94,11 @@ public class DocumentDAO implements IDocumentDAO {
             throw new DataAccessException(e.getMessage());
         }
     }
+
     @Override
     public void finalize(Document doc) throws DataAccessException {
-        String sql = "UPDATE document SET isFinalized = ? WHERE reference = ?";
-        try (Connection conn = SingletonConnection.getInstance();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql = "update document set isFinalized = ? where reference = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setBoolean(1, true);
             ps.setString(2, doc.getReference());
             ps.executeUpdate();
@@ -109,14 +109,14 @@ public class DocumentDAO implements IDocumentDAO {
 
     private Document map(ResultSet rs) throws DataAccessException {
         try {
-            return new Document(
-                    rs.getString("reference"),
-                    rs.getDate("date"),
-                    rs.getString("paymentMethod"),
-                    rs.getBoolean("isFinalized"),
-                    rs.getString("type"),
-                    rs.getInt("person")
-            );
+            Document d = new Document();
+            d.setReference(rs.getString("reference"));
+            d.setDate(rs.getDate("date"));
+            d.setPaymentMethod(rs.getString("paymentMethod"));
+            d.setFinalized(rs.getBoolean("isFinalized"));
+            d.setType(rs.getString("type"));
+            d.setPerson(rs.getInt("person"));
+            return d;
         } catch (SQLException e) {
             throw new DataAccessException(e.getMessage());
         }
