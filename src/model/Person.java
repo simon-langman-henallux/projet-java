@@ -1,105 +1,51 @@
 package model;
 
-import java.util.Date;
+import java.util.Objects;
 
 public class Person {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
 
-    private int id, boxNumber, streetNumber, zipCodeCity;
-    private String name, firstName, phoneNumber, accountNumber, streetName, nameCity, country;
-    private Date birthDate;
-    private boolean isClient, isSupplier;
-
-    public Person(int id, String name, String firstName, String phoneNumber, Date birthDate, int boxNumber, String accountNumber, String streetName, int streetNumber, boolean isClient, boolean isSupplier, int zipCodeCity, String nameCity, String country) {
-        this.id = id;
-        this.name = name;
-        this.firstName = firstName;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-        this.boxNumber = boxNumber;
-        this.accountNumber = accountNumber;
-        this.streetName = streetName;
-        this.streetNumber = streetNumber;
-        this.isClient = isClient;
-        this.isSupplier = isSupplier;
-        this.zipCodeCity = zipCodeCity;
-        this.nameCity = nameCity;
-        this.country = country;
+    public Person(String firstName, String lastName, String email, String phone) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEmail(email);
+        setPhone(phone);
     }
 
-    public Person(String name, String firstName, String phoneNumber, Date birthDate, int boxNumber, String accountNumber, String streetName, int streetNumber, boolean isClient, boolean isSupplier, int zipCodeCity, String nameCity, String country) {
-        this.name = name;
-        this.firstName = firstName;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-        this.boxNumber = boxNumber;
-        this.accountNumber = accountNumber;
-        this.streetName = streetName;
-        this.streetNumber = streetNumber;
-        this.isClient = isClient;
-        this.isSupplier = isSupplier;
-        this.zipCodeCity = zipCodeCity;
-        this.nameCity = nameCity;
-        this.country = country;
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) {
+        String v = Objects.requireNonNull(firstName, "firstName").trim();
+        if (v.isEmpty()) throw new IllegalArgumentException("firstName empty");
+        if (v.length() > 100) throw new IllegalArgumentException("firstName too long");
+        this.firstName = v;
     }
 
-    public Person() {
-        this(null, null, null, null, 0, null, null, 0, false, false, 0, null, null);
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) {
+        String v = Objects.requireNonNull(lastName, "lastName").trim();
+        if (v.isEmpty()) throw new IllegalArgumentException("lastName empty");
+        if (v.length() > 100) throw new IllegalArgumentException("lastName too long");
+        this.lastName = v;
     }
 
-    public int getId() {
-        return id;
+    public String getEmail() { return email; }
+    public void setEmail(String email) {
+        String v = Objects.requireNonNull(email, "email").trim();
+        if (v.isEmpty()) throw new IllegalArgumentException("email empty");
+        if (!v.matches("^[\\w.%+-]+@[\\w.-]+\\.[A-Za-z]{2,}$")) throw new IllegalArgumentException("invalid email");
+        this.email = v;
     }
 
-    public int getBoxNumber() {
-        return boxNumber;
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) {
+        String v = null;
+        if (phone != null && !phone.isBlank()) {
+            v = phone.trim();
+            if (!v.matches("^[+0-9\\- ]{6,20}$")) throw new IllegalArgumentException("invalid phone");
+        }
+        this.phone = v;
     }
-
-    public int getZipCodeCity() {
-        return zipCodeCity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public int getStreetNumber() {
-        return streetNumber;
-    }
-
-    public String getNameCity() {
-        return nameCity;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public boolean isClient() {
-        return isClient;
-    }
-
-    public boolean isSupplier() {
-        return isSupplier;
-    }
-
 }
