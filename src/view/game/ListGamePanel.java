@@ -99,7 +99,11 @@ public class ListGamePanel extends JPanel {
                                 g.getReleaseDate(),
                                 g.getAgeRestriction(),
                                 g.isMultiplayer(),
-                                g.getStock()
+                                g.getDuration(),
+                                g.getStock(),
+                                g.getPublisher(),
+                                g.getGenre(),
+                                g.getPlatform()
                         });
                     }
 

@@ -20,7 +20,6 @@ public class SearchByDatePanel extends JPanel {
     public SearchByDatePanel() {
         setLayout(new BorderLayout());
 
-        // Haut : critères
         JPanel top = new JPanel();
         top.add(new JLabel("Client:"));
         top.add(personCombo);
@@ -30,12 +29,10 @@ public class SearchByDatePanel extends JPanel {
         top.add(searchBtn);
         add(top, BorderLayout.NORTH);
 
-        // Centre : table
         String[] columns = {"Title", "Date", "Quantity", "Unit Price"};
         resultTable.setModel(new DefaultTableModel(columns, 0));
         add(new JScrollPane(resultTable), BorderLayout.CENTER);
 
-        // Charger clients
         try {
             PersonDAO personDAO = new PersonDAO();
             List<Person> people = personDAO.getAllPerson();
@@ -48,7 +45,6 @@ public class SearchByDatePanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Failed to load clients.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Action recherche
         searchBtn.addActionListener(e -> {
             Person p = (Person) personCombo.getSelectedItem();
             Date to = (Date) dateSpinner.getValue();
@@ -65,5 +61,13 @@ public class SearchByDatePanel extends JPanel {
                 }
             }
         });
+
+        JButton exit = new JButton("exit");
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+        add(new JLabel());
+        add(exit);
+
     }
 }

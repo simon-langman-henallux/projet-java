@@ -17,8 +17,8 @@ public class UpdateGamePanel extends JPanel {
         String originalTitle = game.getTitle();
 
         setLayout(new BorderLayout());
-        JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
 
+        JPanel form = new JPanel(new GridLayout(0, 2, 5, 5));
         JTextField titleField = new JTextField(game.getTitle());
         JTextField priceField = new JTextField(String.valueOf(game.getPrice()));
         JTextField descriptionField = new JTextField(game.getDescription() == null ? "" : game.getDescription());
@@ -81,6 +81,13 @@ public class UpdateGamePanel extends JPanel {
 
         add(form, BorderLayout.CENTER);
 
+        JButton exit = new JButton("exit");
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+        form.add(new JLabel());
+        form.add(exit);
+
         submit.addActionListener(e -> {
             try {
                 Game updated = new Game(
@@ -122,7 +129,11 @@ public class UpdateGamePanel extends JPanel {
                         g.getReleaseDate(),
                         g.getAgeRestriction(),
                         g.isMultiplayer(),
-                        g.getStock()
+                        g.getDuration(),
+                        g.getStock(),
+                        g.getPublisher(),
+                        g.getGenre(),
+                        g.getPlatform()
                 });
             }
         } catch (DataAccessException ex) {

@@ -19,7 +19,6 @@ public class SearchByAgePanel extends JPanel {
     public SearchByAgePanel() {
         setLayout(new BorderLayout());
 
-        // Critères
         JPanel top = new JPanel();
         top.add(new JLabel("Country:"));
         top.add(countryCombo);
@@ -29,12 +28,10 @@ public class SearchByAgePanel extends JPanel {
         top.add(searchBtn);
         add(top, BorderLayout.NORTH);
 
-        // Table
         String[] columns = {"Name", "First Name", "Birth Date", "Game Title", "Age Restriction", "Genre"};
         resultTable.setModel(new DefaultTableModel(columns, 0));
         add(new JScrollPane(resultTable), BorderLayout.CENTER);
 
-        // Charger pays
         try {
             CountryDAO dao = new CountryDAO();
             List<Country> countries = dao.getAllCountries();
@@ -45,7 +42,6 @@ public class SearchByAgePanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Failed to load countries.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Recherche
         searchBtn.addActionListener(e -> {
             String country = (String) countryCombo.getSelectedItem();
             int age = (Integer) ageSpinner.getValue();
@@ -62,5 +58,13 @@ public class SearchByAgePanel extends JPanel {
                 }
             }
         });
+
+        JButton exit = new JButton("exit");
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+        add(new JLabel());
+        add(exit);
+
     }
 }

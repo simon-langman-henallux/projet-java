@@ -12,6 +12,7 @@ public class AddPersonPanel extends JPanel {
     private final PersonController controller = new PersonController();
 
     public AddPersonPanel() {
+
         setLayout(new BorderLayout());
 
         JTextField nameField = new JTextField();
@@ -28,35 +29,42 @@ public class AddPersonPanel extends JPanel {
         JTextField boxNumberField = new JTextField();
         JTextField accountNumberField = new JTextField();
 
-        add(new JLabel("Name *"));
+        add(new JLabel("Name : "));
         add(nameField);
-        add(new JLabel("First Name"));
+        add(new JLabel("First Name : "));
         add(firstNameField);
-        add(new JLabel("Phone *"));
+        add(new JLabel("Phone : "));
         add(phoneField);
-        add(new JLabel("Birth Date *"));
+        add(new JLabel("Birth Date : "));
         add(birthDateSpinner);
-        add(new JLabel("Street Name *"));
+        add(new JLabel("Street Name : "));
         add(streetNameField);
-        add(new JLabel("Street Number *"));
+        add(new JLabel("Street Number : "));
         add(streetNumberField);
-        add(new JLabel("Zip Code *"));
+        add(new JLabel("Zip Code : "));
         add(zipCodeField);
-        add(new JLabel("City Name *"));
+        add(new JLabel("City Name : "));
         add(cityNameField);
-        add(new JLabel("Country *"));
+        add(new JLabel("Country : "));
         add(countryField);
-        add(new JLabel("Is Client *"));
+        add(new JLabel("Is Client : "));
         add(isClientCheck);
-        add(new JLabel("Is Supplier *"));
+        add(new JLabel("Is Supplier : "));
         add(isSupplierCheck);
-        add(new JLabel("Box Number"));
+        add(new JLabel("Box Number : "));
         add(boxNumberField);
-        add(new JLabel("Account Number"));
+        add(new JLabel("Account Number : "));
         add(accountNumberField);
 
         JButton submit = new JButton("Create");
         add(submit);
+
+        JButton exit = new JButton("exit");
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+        add(new JLabel());
+        add(exit);
 
         submit.addActionListener(e -> {
             try {

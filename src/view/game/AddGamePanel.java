@@ -88,6 +88,13 @@ public class AddGamePanel extends JPanel {
 
         add(form, BorderLayout.CENTER);
 
+        JButton exit = new JButton("exit");
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+        form.add(new JLabel());
+        form.add(exit);
+
         submit.addActionListener(e -> {
             try {
                 Game game = new Game(
