@@ -11,7 +11,6 @@
 // !!!!! gérer la suppression des jeux et personnes avec les documents.
 
 
-
 Couche présentation (UI / IHM)
 
     Affiche les données à l’utilisateur et récupère ses actions (clics, saisies…).
@@ -43,3 +42,41 @@ Couche modèle (Model / Entities)
     Sert de lien entre la base et les autres couches.
 
     Exemple : classe Game avec id, title, platform.
+
+
+sert à quoi ? :
+
+1. business : classes services => vérifie les entrées, fais les calculs, conversion. transforme les données pour le controller.
+2. controller : fait le pont entre services et view, récupère les valeurs de la view et pousser les résultats dans la view.
+
+
+- pourquoi des interfaces dans dataAccess ?
+
+sert à définir les opérations CRUD que la couche business est autorisée à appeler.
+permet de facilement changer l'implémentation de la couche dataAccess
+en modifiant le moins possible le code dans business (découplage de couches).
+
+- que font les classes concrètes ?
+
+elle implémentent les interfaces, ouvre la connexion à la DB, PREPARENT LES REQUÊTES et gestion des exceptions + mapping des resultset
+
+
+
+
+
+
+
+ordre d'implémentation des classes :
+
+| Ordre | Classe              | Pourquoi commencer par elle                       |
+| ----- | ------------------- | ------------------------------------------------- |
+| 1     | `WelcomePanel`      | Écran d'accueil, sans dépendances                 |
+| 2     | `LauncherWindow`    | Fenêtre principale avec menus                     |
+| 3     | `AddGamePanel`      | Premier formulaire CRUD (le plus simple à tester) |
+| 4     | `ListGamePanel`     | Affiche + supprime + permet modification          |
+| 5     | `AddPersonPanel`    | Même logique, une fois Game maîtrisé              |
+| 6     | `ListPersonPanel`   | Affichage et gestion de Person                    |
+| 7     | `SearchByGamePanel` | Recherche simple avec combo jeux                  |
+| 8     | `SearchByDatePanel` | Recherche avec combo client + `JSpinner` date     |
+| 9     | `SearchByAgePanel`  | Recherche avec combo pays + `JSpinner` âge        |
+| 10    | `AnimatedLogoPanel` | Thread indépendant (aucune dépendance métier)     |

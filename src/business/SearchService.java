@@ -7,10 +7,10 @@ import exception.DataAccessException;
 import java.math.BigDecimal;
 import java.util.Map;
 
-public class StatisticsManager {
+public class SearchService {
     private final IGameDAO gamedao;
 
-    public StatisticsManager() {
+    public SearchService() {
         this.gamedao = new GameDAO();
     }
 
