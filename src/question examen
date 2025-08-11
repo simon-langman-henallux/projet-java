@@ -9,3 +9,37 @@
 
 //ordre de travail : model → exception → dataAccess → business → controller → view → Launcher
 // !!!!! gérer la suppression des jeux et personnes avec les documents.
+
+
+
+Couche présentation (UI / IHM)
+
+    Affiche les données à l’utilisateur et récupère ses actions (clics, saisies…).
+
+    Ne contient pas de logique métier ni d’accès direct à la base.
+
+    Exemple : fenêtres Swing, pages web, formulaires.
+
+Couche métier (Business / Service)
+
+    Contient les règles et traitements spécifiques au domaine du projet.
+
+    Décide comment manipuler les données.
+
+    Exemple : calcul d’un prix, validation d’une commande.
+
+Couche d’accès aux données (DAO / Repository)
+
+    Gère la communication avec la base de données ou d’autres sources de données.
+
+    Effectue les opérations CRUD (create, read, update, delete).
+
+    Exemple : GameDAO, PersonDAO.
+
+Couche modèle (Model / Entities)
+
+    Définit les objets qui représentent les données manipulées par l’application.
+
+    Sert de lien entre la base et les autres couches.
+
+    Exemple : classe Game avec id, title, platform.

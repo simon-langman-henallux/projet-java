@@ -14,13 +14,7 @@ public class Document {
 
     public Document() {}
 
-    public Document(int id,
-                    String reference,
-                    Date date,
-                    String type,
-                    int person,
-                    String paymentMethod,
-                    boolean finalized) {
+    public Document(int id, String reference, Date date, String type, int person, String paymentMethod, boolean finalized) {
         setId(id);
         setReference(reference);
         setDate(date);
