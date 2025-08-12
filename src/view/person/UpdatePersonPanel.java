@@ -26,7 +26,7 @@ public class UpdatePersonPanel extends JPanel {
         JTextField streetNumberField = new JTextField(String.valueOf(existingPerson.getStreetNumber()));
         JCheckBox isClientCheck = new JCheckBox("", existingPerson.isClient());
         JCheckBox isSupplierCheck = new JCheckBox("", existingPerson.isSupplier());
-        JTextField boxNumberField = new JTextField(existingPerson.getBoxNumber());
+        JTextField boxNumberField = new JTextField(existingPerson.getBoxNumber() != null ? existingPerson.getBoxNumber().toString() : "");
         JTextField accountNumberField = new JTextField(existingPerson.getAccountNumber() != null ? existingPerson.getAccountNumber() : "");
 
         JComboBox<String> cityCombo = new JComboBox<>();
@@ -98,9 +98,9 @@ public class UpdatePersonPanel extends JPanel {
                 SwingUtilities.getWindowAncestor(this).dispose()
         );
 
-        add(exit , BorderLayout.EAST);
         add(form, BorderLayout.CENTER);
         add(updateBtn, BorderLayout.SOUTH);
+        add(exit , BorderLayout.SOUTH);
 
 
 

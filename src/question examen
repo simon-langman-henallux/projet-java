@@ -1,4 +1,4 @@
-// TODO affichage document voir word, updatePersonPanel non fonctionnel
+// TODO affichage document voir word
 
 - design pattern SingletonConnection, DAO
 - les couches (dataAccess, business, exception, etc...)
