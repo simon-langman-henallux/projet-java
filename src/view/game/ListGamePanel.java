@@ -12,17 +12,21 @@ public class ListGamePanel extends JPanel {
     private final JTable table = new JTable();
 
     public ListGamePanel() {
-
         setLayout(new BorderLayout());
         String[] columns = {"title", "price", "release date", "age minimum", "multiplayer", "duration", "stock", "publisher", "genre", "platform"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
         table.setModel(model);
 
-        JButton deleteButton = getDeleteButton();
+        JButton deleteButton = getDeleteButton(model);
+        JButton updateButton = getUpdateButton();
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(deleteButton);
+        buttonPanel.add(updateButton);
 
         add(new JScrollPane(table), BorderLayout.CENTER);
-        add(deleteButton, BorderLayout.SOUTH);
+        add(buttonPanel, BorderLayout.SOUTH);
 
         try {
             var games = controller.getAllGames();
@@ -43,19 +47,10 @@ public class ListGamePanel extends JPanel {
         } catch (DataAccessException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        JButton updateButton = getUpdateButton();
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(deleteButton);
-        buttonPanel.add(updateButton);
-        add(buttonPanel, BorderLayout.SOUTH);
-
     }
 
     private JButton getUpdateButton() {
         JButton updateButton = new JButton("Update selected game");
-
         updateButton.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
             if (selectedRow >= 0) {
@@ -79,18 +74,27 @@ public class ListGamePanel extends JPanel {
         return updateButton;
     }
 
-    private JButton getDeleteButton() {
+    private JButton getDeleteButton(DefaultTableModel model) {
         JButton deleteButton = new JButton("Delete selected game");
-
         deleteButton.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
             if (selectedRow >= 0) {
                 String title = table.getValueAt(selectedRow, 0).toString();
                 try {
-                    controller.removeGame(title);
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    model.setRowCount(0);
+                    if (controller.hasRelatedDocumentLines(title)) {
+                        int confirm = JOptionPane.showConfirmDialog(this,
+                                "This game has related document lines. Do you want to delete them too?",
+                                "Confirm delete",
+                                JOptionPane.YES_NO_OPTION);
+                        if (confirm != JOptionPane.YES_OPTION) {
+                            return;
+                        }
+                        controller.deleteWithDocumentLines(title);
+                    } else {
+                        controller.removeGame(title);
+                    }
 
+                    model.setRowCount(0);
                     var games = controller.getAllGames();
                     for (var g : games) {
                         model.addRow(new Object[]{
@@ -106,7 +110,7 @@ public class ListGamePanel extends JPanel {
                                 g.getPlatform()
                         });
                     }
-
+                    JOptionPane.showMessageDialog(this, "Game deleted.");
                 } catch (DataAccessException ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -116,5 +120,4 @@ public class ListGamePanel extends JPanel {
         });
         return deleteButton;
     }
-
 }

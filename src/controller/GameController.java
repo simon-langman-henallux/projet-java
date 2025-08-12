@@ -41,4 +41,12 @@ public class GameController {
         return service.getAllGenreNames();
     }
 
+    public boolean hasRelatedDocumentLines(String title) throws DataAccessException {
+        return service.hasRelatedDocumentLines(title);
+    }
+
+    public void deleteWithDocumentLines(String title) throws DataAccessException {
+        service.deleteWithDocumentLines(title);
+    }
+
 }

@@ -18,4 +18,6 @@ public interface IGameDAO {
     List<String> getAllPublisherNames() throws DataAccessException;
     List<String> getAllPlatformNames() throws DataAccessException;
     List<String> getAllGenreNames() throws DataAccessException;
+    boolean hasRelatedDocumentLines(String title) throws DataAccessException;
+    void deleteWithDocumentLines(String title) throws DataAccessException;
 }

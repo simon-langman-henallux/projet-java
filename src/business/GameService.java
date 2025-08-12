@@ -43,6 +43,14 @@ public class GameService {
         return gameDAO.getGameByTitle(title);
     }
 
+    public boolean hasRelatedDocumentLines(String title) throws DataAccessException {
+        return gameDAO.hasRelatedDocumentLines(title);
+    }
+
+    public void deleteWithDocumentLines(String title) throws DataAccessException {
+        gameDAO.deleteWithDocumentLines(title);
+    }
+
     private void validate(Game game) throws DataAccessException {
         if (game.getTitle() == null || game.getTitle().isBlank()) {
             throw new DataAccessException("Game title is required.");

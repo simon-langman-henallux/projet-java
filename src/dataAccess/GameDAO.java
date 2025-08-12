@@ -186,6 +186,46 @@ public class GameDAO implements dataAccess.IGameDAO {
         }
     }
 
+    @Override
+    public boolean hasRelatedDocumentLines(String title) throws DataAccessException {
+        String sql = "SELECT COUNT(*) FROM documentLine WHERE game = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, title);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        }
+        return false;
+    }
+
+    @Override
+    public void deleteWithDocumentLines(String title) throws DataAccessException {
+        try {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps1 = conn.prepareStatement("DELETE FROM documentLine WHERE game = ?")) {
+                ps1.setString(1, title);
+                ps1.executeUpdate();
+            }
+
+            try (PreparedStatement ps2 = conn.prepareStatement("DELETE FROM game WHERE title = ?")) {
+                ps2.setString(1, title);
+                ps2.executeUpdate();
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            try { conn.rollback(); } catch (SQLException ignore) {}
+            throw new DataAccessException(e.getMessage());
+        } finally {
+            try { conn.setAutoCommit(true); } catch (SQLException ignore) {}
+        }
+    }
+
     private Game map(ResultSet rs) throws DataAccessException {
         try {
             return new Game(
