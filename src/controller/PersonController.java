@@ -3,9 +3,6 @@ package controller;
 import business.PersonService;
 import exception.DataAccessException;
 import model.Person;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 public class PersonController {
@@ -30,4 +27,13 @@ public class PersonController {
     public PersonService getService() {
         return service;
     }
+
+    public boolean hasRelatedDocuments(int personId) throws DataAccessException {
+        return service.hasRelatedDocuments(personId);
+    }
+
+    public void deletePersonWithDocuments(int personId) throws DataAccessException {
+        service.deleteWithDocuments(personId);
+    }
+
 }

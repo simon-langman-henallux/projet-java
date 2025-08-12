@@ -11,4 +11,5 @@ public interface ISearchDAO {
     List<Object[]> getCountries() throws DataAccessException;
     List<Object[]> getGames() throws DataAccessException;
     List<Object[]> getPersons() throws DataAccessException;
+    List<Object[]> getCities() throws DataAccessException;
 }

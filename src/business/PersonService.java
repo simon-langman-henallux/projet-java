@@ -16,6 +16,9 @@ public class PersonService {
 
     public void create(Person person) throws DataAccessException {
         validate(person);
+        if (personDAO.exists(person)) {
+            throw new DataAccessException("Person already exists.");
+        }
         personDAO.insert(person);
     }
 
@@ -34,6 +37,14 @@ public class PersonService {
 
     public void delete(int id) throws DataAccessException {
         personDAO.delete(id);
+    }
+
+    public boolean hasRelatedDocuments(int personId) throws DataAccessException {
+        return personDAO.hasRelatedDocuments(personId);
+    }
+
+    public void deleteWithDocuments(int personId) throws DataAccessException {
+        personDAO.deleteWithDocuments(personId);
     }
 
     private void validate(Person person) throws DataAccessException {

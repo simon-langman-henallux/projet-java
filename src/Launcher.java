@@ -8,10 +8,4 @@ public class Launcher {
         });
     }
 
-    public void refresh(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new MainWindow().setVisible(true);
-        });
-    }
-
 }

@@ -3,6 +3,7 @@ package controller;
 import dataAccess.ISearchDAO;
 import dataAccess.SearchDAO;
 import exception.DataAccessException;
+import model.City;
 
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,10 @@ public class SearchController {
 
     public List<Object[]> getPersons() throws DataAccessException {
         return dao.getPersons();
+    }
+
+    public List<Object[]> getCities() throws DataAccessException {
+        return dao.getCities();
     }
 
 }

@@ -149,4 +149,19 @@ public class SearchDAO implements ISearchDAO {
         return out;
     }
 
+    public List<Object[]> getCities() throws DataAccessException {
+        String sql = "select zipCode, name, country from city";
+        List<Object[]> out = new ArrayList<>();
+        try (Connection cn = getConnection();
+             PreparedStatement ps = cn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                out.add(new Object[]{rs.getString(1), rs.getString(2), rs.getString(3)});
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException(e.getMessage());
+        }
+        return out;
+    }
+
 }

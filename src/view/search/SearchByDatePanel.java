@@ -29,7 +29,7 @@ public class SearchByDatePanel extends JPanel {
         criteria.add(searchBtn);
         add(criteria, BorderLayout.NORTH);
 
-        String[] cols = {"Title", "Date", "Quantity", "Unit Price"};
+        String[] cols = {"title", "date", "quantity", "unit price"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(cols);
         table.setModel(model);

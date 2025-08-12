@@ -10,4 +10,7 @@ public interface IPersonDAO {
     List<Person> getAllPerson() throws DataAccessException;
     void update(Person person) throws DataAccessException;
     void delete(int id) throws DataAccessException;
+    boolean exists(Person person) throws DataAccessException;
+    boolean hasRelatedDocuments(int personId) throws DataAccessException;
+    void deleteWithDocuments(int personId) throws DataAccessException;
 }

@@ -31,7 +31,18 @@ public class ListPersonPanel extends JPanel {
             if (row >= 0) {
                 int id = Integer.parseInt(table.getValueAt(row, 0).toString());
                 try {
-                    controller.removePerson(id);
+                    if (controller.hasRelatedDocuments(id)) {
+                        int confirm = JOptionPane.showConfirmDialog(this,
+                                "This person has related documents. Do you want to delete them too?",
+                                "Confirm delete",
+                                JOptionPane.YES_NO_OPTION);
+                        if (confirm != JOptionPane.YES_OPTION) {
+                            return;
+                        }
+                        controller.deletePersonWithDocuments(id);
+                    } else {
+                        controller.removePerson(id);
+                    }
                     model.removeRow(row);
                     JOptionPane.showMessageDialog(this, "Person deleted.");
                 } catch (DataAccessException ex) {

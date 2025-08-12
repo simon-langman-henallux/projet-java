@@ -1,12 +1,14 @@
 package view.person;
 
 import controller.PersonController;
+import controller.SearchController;
 import exception.DataAccessException;
 import model.Person;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Date;
+import java.util.List;
 
 public class UpdatePersonPanel extends JPanel {
 
@@ -22,13 +24,24 @@ public class UpdatePersonPanel extends JPanel {
         JSpinner birthDateSpinner = new JSpinner(new SpinnerDateModel(existingPerson.getBirthDate(), null, null, java.util.Calendar.DAY_OF_MONTH));
         JTextField streetNameField = new JTextField(existingPerson.getStreetName());
         JTextField streetNumberField = new JTextField(String.valueOf(existingPerson.getStreetNumber()));
-        JTextField zipCodeField = new JTextField(String.valueOf(existingPerson.getZipCodeCity()));
-        JTextField cityNameField = new JTextField(existingPerson.getNameCity());
-        JTextField countryField = new JTextField(existingPerson.getCountry());
         JCheckBox isClientCheck = new JCheckBox("", existingPerson.isClient());
         JCheckBox isSupplierCheck = new JCheckBox("", existingPerson.isSupplier());
         JTextField boxNumberField = new JTextField(existingPerson.getBoxNumber());
         JTextField accountNumberField = new JTextField(existingPerson.getAccountNumber() != null ? existingPerson.getAccountNumber() : "");
+
+        JComboBox<String> cityCombo = new JComboBox<>();
+        try {
+            SearchController searchController = new SearchController();
+            List<Object[]> cities = searchController.getCities();
+            for (Object[] c : cities) {
+                String zip = (String) c[0];
+                String city = (String) c[1];
+                String country = (String) c[2];
+                cityCombo.addItem(zip + " - " + city + " - " + country);
+            }
+        } catch (DataAccessException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
         JPanel form = new JPanel(new GridLayout(0, 2));
         form.add(new JLabel("Name : ")); form.add(nameField);
@@ -37,9 +50,7 @@ public class UpdatePersonPanel extends JPanel {
         form.add(new JLabel("Birth Date : ")); form.add(birthDateSpinner);
         form.add(new JLabel("Street Name  :")); form.add(streetNameField);
         form.add(new JLabel("Street Number : ")); form.add(streetNumberField);
-        form.add(new JLabel("Zip Code : ")); form.add(zipCodeField);
-        form.add(new JLabel("City Name : ")); form.add(cityNameField);
-        form.add(new JLabel("Country : ")); form.add(countryField);
+        form.add(new JLabel("City : ")); form.add(cityCombo);
         form.add(new JLabel("Is Client : ")); form.add(isClientCheck);
         form.add(new JLabel("Is Supplier : ")); form.add(isSupplierCheck);
         form.add(new JLabel("Box Number : ")); form.add(boxNumberField);
@@ -48,6 +59,13 @@ public class UpdatePersonPanel extends JPanel {
         JButton updateBtn = new JButton("Update");
         updateBtn.addActionListener(e -> {
             try {
+                String selected = (String) cityCombo.getSelectedItem();
+                assert selected != null;
+                String[] parts = selected.split(" - ");
+                int zipCode = Integer.parseInt(parts[0]);
+                String cityName = parts[1];
+                String country = parts[2];
+
                 Person updated = new Person(
                         existingPerson.getId(),
                         nameField.getText(),
@@ -60,9 +78,9 @@ public class UpdatePersonPanel extends JPanel {
                         Integer.parseInt(streetNumberField.getText()),
                         isClientCheck.isSelected(),
                         isSupplierCheck.isSelected(),
-                        Integer.parseInt(zipCodeField.getText()),
-                        cityNameField.getText(),
-                        countryField.getText()
+                        zipCode,
+                        cityName,
+                        country
                 );
                 controller.editPerson(updated);
                 JOptionPane.showMessageDialog(this, "Person updated.");
