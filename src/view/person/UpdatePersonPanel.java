@@ -92,7 +92,17 @@ public class UpdatePersonPanel extends JPanel {
             }
         });
 
+        JButton exit =  new JButton("Exit");
+
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+
+        add(exit , BorderLayout.EAST);
         add(form, BorderLayout.CENTER);
         add(updateBtn, BorderLayout.SOUTH);
+
+
+
     }
 }

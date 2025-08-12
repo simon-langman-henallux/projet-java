@@ -17,12 +17,20 @@ public class SearchByGamePanel extends JPanel {
     public SearchByGamePanel() {
         setLayout(new BorderLayout());
 
+        JButton exit = new JButton("Exit");
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+
         JPanel criteria = new JPanel(new FlowLayout(FlowLayout.LEFT));
         criteria.add(new JLabel("Game"));
         criteria.add(gameBox);
         JButton searchBtn = new JButton("Search");
+
+
         criteria.add(searchBtn);
         add(criteria, BorderLayout.NORTH);
+        add(exit , BorderLayout.SOUTH);
 
         String[] cols = {"First Name", "Last Name", "Street", "Zip Code", "City", "Country", "Currency"};
         DefaultTableModel model = new DefaultTableModel();

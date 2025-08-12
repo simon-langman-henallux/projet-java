@@ -20,10 +20,16 @@ public class ListGamePanel extends JPanel {
 
         JButton deleteButton = getDeleteButton(model);
         JButton updateButton = getUpdateButton();
+        JButton exit = new JButton("Exit");
+
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(deleteButton);
         buttonPanel.add(updateButton);
+        buttonPanel.add(exit);
 
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
@@ -120,4 +126,5 @@ public class ListGamePanel extends JPanel {
         });
         return deleteButton;
     }
+
 }

@@ -65,6 +65,14 @@ public class SearchByAgePanel extends JPanel {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+        JButton exit = new JButton("Exit");
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+
+        add(exit, BorderLayout.SOUTH);
+
     }
 
     private int computeAge(Date birthDate) {
@@ -77,4 +85,5 @@ public class SearchByAgePanel extends JPanel {
         }
         return Period.between(bd, LocalDate.now()).getYears();
     }
+
 }

@@ -72,9 +72,17 @@ public class ListPersonPanel extends JPanel {
             }
         });
 
+        JButton exit = new JButton("Exit");
+
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(deleteBtn);
         buttonPanel.add(editBtn);
+        buttonPanel.add(exit);
 
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);

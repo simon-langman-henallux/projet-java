@@ -59,6 +59,15 @@ public class SearchByDatePanel extends JPanel {
             } catch (DataAccessException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         });
+
+        JButton exit = new JButton("Exit");
+        exit.addActionListener(e ->
+                SwingUtilities.getWindowAncestor(this).dispose()
+        );
+
+        add(exit, BorderLayout.SOUTH);
+
     }
 }
