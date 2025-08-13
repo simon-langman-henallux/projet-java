@@ -1,15 +1,13 @@
-package dataAccess;
+package dataAccess.game;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import exception.DataAccessException;
 import model.Game;
 
-public class GameDAO implements dataAccess.IGameDAO {
+public class GameDAO implements IGameDAO {
 
     private final Connection conn;
 

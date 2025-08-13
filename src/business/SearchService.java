@@ -1,7 +1,7 @@
 package business;
 
-import dataAccess.IGameDAO;
-import dataAccess.GameDAO;
+import dataAccess.game.IGameDAO;
+import dataAccess.game.GameDAO;
 
 public class SearchService {
 

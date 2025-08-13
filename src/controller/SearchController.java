@@ -1,7 +1,7 @@
 package controller;
 
-import dataAccess.ISearchDAO;
-import dataAccess.SearchDAO;
+import dataAccess.search.ISearchDAO;
+import dataAccess.search.SearchDAO;
 import exception.DataAccessException;
 import java.util.Date;
 import java.util.List;

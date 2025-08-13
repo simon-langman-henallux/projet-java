@@ -1,5 +1,6 @@
-package dataAccess;
+package dataAccess.person;
 
+import dataAccess.SingletonConnection;
 import exception.DataAccessException;
 import model.Person;
 

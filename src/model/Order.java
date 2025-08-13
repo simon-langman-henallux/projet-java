@@ -5,7 +5,6 @@ import java.util.Objects;
 
 public class Order {
 
-    private int id;
     private String reference;
     private Date date;
     private String type;
@@ -15,8 +14,7 @@ public class Order {
 
     public Order() {}
 
-    public Order(int id, String reference, Date date, String type, int person, String paymentMethod, boolean finalized) {
-        setId(id);
+    public Order(String reference, Date date, String type, int person, String paymentMethod, boolean finalized) {
         setReference(reference);
         setDate(date);
         setType(type);
@@ -25,17 +23,11 @@ public class Order {
         setFinalized(finalized);
     }
 
-    public int getId() { return id; }
-    public void setId(int id) {
-        if (id < 0) throw new IllegalArgumentException("id < 0");
-        this.id = id;
-    }
-
     public String getReference() { return reference; }
     public void setReference(String reference) {
         String v = Objects.requireNonNull(reference, "reference").trim();
         if (v.isEmpty()) throw new IllegalArgumentException("reference empty");
-        if (v.length() > 200) throw new IllegalArgumentException("reference too long");
+        if (v.length() > 20) throw new IllegalArgumentException("reference too long");
         this.reference = v;
     }
 
@@ -49,7 +41,7 @@ public class Order {
     public void setType(String type) {
         String v = Objects.requireNonNull(type, "type").trim();
         if (v.isEmpty()) throw new IllegalArgumentException("type empty");
-        if (v.length() > 100) throw new IllegalArgumentException("type too long");
+        if (v.length() > 50) throw new IllegalArgumentException("type too long");
         this.type = v;
     }
 
@@ -63,11 +55,10 @@ public class Order {
     public void setPaymentMethod(String paymentMethod) {
         String v = Objects.requireNonNull(paymentMethod, "paymentMethod").trim();
         if (v.isEmpty()) throw new IllegalArgumentException("paymentMethod empty");
-        if (v.length() > 50) throw new IllegalArgumentException("paymentMethod too long");
+        if (v.length() > 20) throw new IllegalArgumentException("paymentMethod too long");
         this.paymentMethod = v;
     }
 
     public boolean isFinalized() { return finalized; }
     public void setFinalized(boolean finalized) { this.finalized = finalized; }
-
 }

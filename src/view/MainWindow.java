@@ -9,10 +9,15 @@ import view.person.ListPersonPanel;
 import view.search.SearchByAgePanel;
 import view.search.SearchByDatePanel;
 import view.search.SearchByGamePanel;
+import view.order.AddOrderPanel;
+import view.order.ListOrderPanel;
+import controller.OrderController;
 import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
+
+    private OrderController orderController;
 
     public MainWindow() {
 
@@ -20,6 +25,8 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
+
+        orderController = new OrderController();
 
         BackgroundPanel backgroundPanel = new BackgroundPanel();
         backgroundPanel.setLayout(null);
@@ -67,6 +74,15 @@ public class MainWindow extends JFrame {
         searchByDate.addActionListener(e -> openWindowWithPanel(new SearchByDatePanel(), "Search by Date"));
         searchManager.add(searchByGame);
         searchByGame.addActionListener(e -> openWindowWithPanel(new SearchByGamePanel(), "Search by Game"));
+
+        JMenu orderManager = new JMenu("order manager");
+        JMenuItem addOrder = new JMenuItem("add order");
+        JMenuItem listOrder = new JMenuItem("list all orders");
+        menuBar.add(orderManager);
+        orderManager.add(addOrder);
+        addOrder.addActionListener(e -> openWindowWithPanel(new AddOrderPanel(orderController), "Add Order"));
+        orderManager.add(listOrder);
+        listOrder.addActionListener(e -> openWindowWithPanel(new ListOrderPanel(orderController), "List Orders"));
 
         JMenuItem exit = new JMenuItem("exit");
         menuBar.add(exit);

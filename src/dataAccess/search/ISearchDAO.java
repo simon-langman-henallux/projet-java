@@ -1,4 +1,4 @@
-package dataAccess;
+package dataAccess.search;
 
 import exception.DataAccessException;
 import java.util.Date;

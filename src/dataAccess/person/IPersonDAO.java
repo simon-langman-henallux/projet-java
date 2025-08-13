@@ -1,4 +1,4 @@
-package dataAccess;
+package dataAccess.person;
 
 import exception.DataAccessException;
 import model.Person;

@@ -1,7 +1,7 @@
 package business;
 
-import dataAccess.GameDAO;
-import dataAccess.IGameDAO;
+import dataAccess.game.GameDAO;
+import dataAccess.game.IGameDAO;
 import exception.DataAccessException;
 import model.Game;
 

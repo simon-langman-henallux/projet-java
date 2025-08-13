@@ -2,7 +2,16 @@
 // TODO affichage commande
 // TODO passage de commande
 // TODO champs non modifiable dans les formulaires
+// TODO déplacer code de CountryDAO dans autre classe car classes supp. inutiles
 
+A AMELIORER ?
+
+- dans la liste de commandes, afficher le nom du client plutot que son id.
+
+
+
+
+PREPA QUESTION POUR EXAM
 - design pattern SingletonConnection, DAO
 - les couches (dataAccess, business, exception, etc...)
 - 2 constructeurs ds Person mais pas dans Game et Document ? car l'identifiant de Peerson est auto-incrémenté donc dans les insert pas besoin de récupérer l'insert, mais dans Game et Document si.
@@ -64,12 +73,6 @@ en modifiant le moins possible le code dans business (découplage de couches).
 - que font les classes concrètes ?
 
 elle implémentent les interfaces, ouvre la connexion à la DB, PREPARENT LES REQUÊTES et gestion des exceptions + mapping des resultset
-
-
-
-
-
-
 
 ordre d'implémentation des classes :
 

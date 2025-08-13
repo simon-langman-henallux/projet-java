@@ -1,7 +1,7 @@
 package business;
 
-import dataAccess.IPersonDAO;
-import dataAccess.PersonDAO;
+import dataAccess.person.IPersonDAO;
+import dataAccess.person.PersonDAO;
 import exception.DataAccessException;
 import model.Person;
 

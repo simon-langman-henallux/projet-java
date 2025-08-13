@@ -1,4 +1,4 @@
-package dataAccess;
+package dataAccess.stats;
 
 public class StatsDAO {
 }
