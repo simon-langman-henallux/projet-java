@@ -21,7 +21,7 @@ public class ListOrderLinePanel extends JPanel {
         setLayout(new BorderLayout());
 
         model = new DefaultTableModel();
-        model.setColumnIdentifiers(new String[]{"Game", "Order Ref", "Unit Price", "Quantity"});
+        model.setColumnIdentifiers(new String[]{"game", "order ref", "unit price", "quantity"});
         JTable table = new JTable(model);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
@@ -39,7 +39,6 @@ public class ListOrderLinePanel extends JPanel {
 
         btnAddLine.addActionListener(e -> {
             JFrame frame = new JFrame("Add Order Line");
-            frame.setContentPane(new AddOrderLinePanel(controller, orderRef));
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.pack();
             frame.setLocationRelativeTo(null);
