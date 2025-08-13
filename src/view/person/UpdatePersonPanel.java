@@ -98,9 +98,12 @@ public class UpdatePersonPanel extends JPanel {
                 SwingUtilities.getWindowAncestor(this).dispose()
         );
 
+        JPanel buttonPanel = new JPanel();
+
+        buttonPanel.add(updateBtn);
+        buttonPanel.add(exit);
+        add(buttonPanel, BorderLayout.SOUTH);
         add(form, BorderLayout.CENTER);
-        add(updateBtn, BorderLayout.SOUTH);
-        add(exit , BorderLayout.SOUTH);
 
 
 

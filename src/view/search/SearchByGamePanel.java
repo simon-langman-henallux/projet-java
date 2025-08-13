@@ -15,6 +15,7 @@ public class SearchByGamePanel extends JPanel {
     private final JTable table = new JTable();
 
     public SearchByGamePanel() {
+
         setLayout(new BorderLayout());
 
         JButton exit = new JButton("Exit");
@@ -30,7 +31,9 @@ public class SearchByGamePanel extends JPanel {
 
         criteria.add(searchBtn);
         add(criteria, BorderLayout.NORTH);
-        add(exit , BorderLayout.SOUTH);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(exit);
+        add(buttonPanel, BorderLayout.SOUTH);
 
         String[] cols = {"First Name", "Last Name", "Street", "Zip Code", "City", "Country", "Currency"};
         DefaultTableModel model = new DefaultTableModel();

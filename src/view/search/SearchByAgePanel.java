@@ -71,7 +71,9 @@ public class SearchByAgePanel extends JPanel {
                 SwingUtilities.getWindowAncestor(this).dispose()
         );
 
-        add(exit, BorderLayout.SOUTH);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(exit);
+        add(buttonPanel, BorderLayout.SOUTH);
 
     }
 

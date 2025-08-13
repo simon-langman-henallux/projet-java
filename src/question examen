@@ -1,4 +1,7 @@
-// TODO affichage document voir word
+// TODO gestion statistiques
+// TODO affichage document
+// TODO passage de commande
+// TODO champs non modifiable dans les formulaires
 
 - design pattern SingletonConnection, DAO
 - les couches (dataAccess, business, exception, etc...)
