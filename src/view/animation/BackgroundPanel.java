@@ -5,6 +5,7 @@ import java.awt.*;
 import java.io.File;
 
 public class BackgroundPanel extends JPanel {
+
     private final Image image;
 
     public BackgroundPanel() {

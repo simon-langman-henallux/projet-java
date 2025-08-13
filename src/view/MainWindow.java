@@ -9,15 +9,19 @@ import view.person.ListPersonPanel;
 import view.search.SearchByAgePanel;
 import view.search.SearchByDatePanel;
 import view.search.SearchByGamePanel;
-import view.order.AddOrderPanel;
+import view.order.CreateOrderPanel;
 import view.order.ListOrderPanel;
 import controller.OrderController;
+import controller.GameController;
+import controller.PersonController;
 import javax.swing.*;
 import java.awt.*;
 
 public class MainWindow extends JFrame {
 
-    private OrderController orderController;
+    private final OrderController orderController;
+    private final GameController gameController;
+    private final PersonController personController;
 
     public MainWindow() {
 
@@ -27,6 +31,8 @@ public class MainWindow extends JFrame {
         setLocationRelativeTo(null);
 
         orderController = new OrderController();
+        gameController = new GameController();
+        personController = new PersonController();
 
         BackgroundPanel backgroundPanel = new BackgroundPanel();
         backgroundPanel.setLayout(null);
@@ -76,18 +82,17 @@ public class MainWindow extends JFrame {
         searchByGame.addActionListener(e -> openWindowWithPanel(new SearchByGamePanel(), "Search by Game"));
 
         JMenu orderManager = new JMenu("order manager");
-        JMenuItem addOrder = new JMenuItem("add order");
         JMenuItem listOrder = new JMenuItem("list all orders");
-        menuBar.add(orderManager);
-        orderManager.add(addOrder);
-        addOrder.addActionListener(e -> openWindowWithPanel(new AddOrderPanel(orderController), "Add Order"));
         orderManager.add(listOrder);
-        listOrder.addActionListener(e -> openWindowWithPanel(new ListOrderPanel(orderController), "List Orders"));
+        menuBar.add(orderManager);
+        listOrder.addActionListener(e -> openWindowWithPanel(
+                new ListOrderPanel(orderController, gameController, personController),
+                "List Orders"
+        ));
 
         JMenuItem exit = new JMenuItem("exit");
         menuBar.add(exit);
         exit.addActionListener(e -> System.exit(0));
-
     }
 
     private void openWindowWithPanel(JPanel panel, String title) {

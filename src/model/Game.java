@@ -122,4 +122,10 @@ public class Game {
         if (v.length() > 100) throw new IllegalArgumentException("platform too long");
         this.platform = v;
     }
+
+    @Override
+    public String toString() {
+        return title + " - " + price + "€ (stock: " + stock + ")";
+    }
+
 }

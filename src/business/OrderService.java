@@ -32,4 +32,9 @@ public class OrderService {
     public List<Order> getAll() {
         return dao.getAll();
     }
+
+    public void remove(String reference) {
+        dao.delete(reference);
+    }
+
 }

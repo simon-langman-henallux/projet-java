@@ -4,20 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class AnimatedLogoPanel extends JPanel implements Runnable {
+public class AnimatedLogoPanel extends JPanel {
+
     private int x = 100, y = 100;
     private int dx = 2, dy = 2;
     private final int logoSize = 200;
     private final Image logo;
 
     public AnimatedLogoPanel() {
-        int width = 100;
-        int height = 100;
-        setPreferredSize(new Dimension(width, height));
         setBackground(Color.BLACK);
         setOpaque(false);
         logo = loadLogoImage();
-        new Thread(this).start();
+        Timer timer = new Timer(10, e -> moveLogo());
+        timer.start();
     }
 
     private Image loadLogoImage() {
@@ -26,25 +25,17 @@ public class AnimatedLogoPanel extends JPanel implements Runnable {
         return icon.getImage().getScaledInstance(logoSize, logoSize, Image.SCALE_SMOOTH);
     }
 
+    private void moveLogo() {
+        x += dx;
+        y += dy;
+        if (x < 0 || x + logoSize > getWidth()) dx = -dx;
+        if (y < 0 || y + logoSize > getHeight()) dy = -dy;
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(logo, x, y, this);
-    }
-
-    @Override
-    public void run() {
-        while (true) {
-            x += dx;
-            y += dy;
-
-            if (x < 0 || x + logoSize > getWidth()) dx = -dx;
-            if (y < 0 || y + logoSize > getHeight()) dy = -dy;
-
-            repaint();
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException ignored) {}
-        }
     }
 }

@@ -146,6 +146,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return firstName + " " + name + " (" + id + ")";
+        return id + " - " + name + " (Client: " + isClient + ", Supplier: " + isSupplier + ")";
     }
+
 }

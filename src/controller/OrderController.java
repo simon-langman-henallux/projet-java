@@ -31,4 +31,9 @@ public class OrderController {
     public List<Order> getAll() {
         return service.getAll();
     }
+
+    public void remove(String reference) {
+        service.remove(reference);
+    }
+
 }

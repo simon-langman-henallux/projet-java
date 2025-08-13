@@ -6,10 +6,10 @@
 
 A AMELIORER ?
 
+- isFinalized es tjs mis à true lors de la création.
 - dans la liste de commandes, afficher le nom du client plutot que son id.
-
-
-
+- les ref des commandes ne sont pas conformes aux insert de la db.
+- corriger les format de dates.
 
 PREPA QUESTION POUR EXAM
 - design pattern SingletonConnection, DAO
