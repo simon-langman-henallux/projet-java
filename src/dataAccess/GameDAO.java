@@ -151,42 +151,6 @@ public class GameDAO implements dataAccess.IGameDAO {
     }
 
     @Override
-    public Map<String, BigDecimal> getTotalSalesByGenre() throws DataAccessException {
-        String sql = "select g.genre, sum(dl.quantity * dl.unitPrice) as total from documentline dl join game g on g.title = dl.game join document d on d.reference = dl.document where d.type = 'Sale' group by g.genre";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            Map<String, BigDecimal> result = new java.util.HashMap<>();
-            while (rs.next()) {
-                result.put(rs.getString("genre"), rs.getBigDecimal("total"));
-            }
-            return result;
-
-        } catch (SQLException e) {
-            throw new DataAccessException("Error retrieving total sales by genre: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public Map<String, BigDecimal> getAveragePriceByPublisher() throws DataAccessException {
-        String sql = "select publisher, avg(price) as average from game group by publisher";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            Map<String, BigDecimal> result = new java.util.HashMap<>();
-            while (rs.next()) {
-                result.put(rs.getString("publisher"), rs.getBigDecimal("average"));
-            }
-            return result;
-
-        } catch (SQLException e) {
-            throw new DataAccessException("Error retrieving average price by publisher: " + e.getMessage());
-        }
-    }
-
-    @Override
     public boolean hasRelatedDocumentLines(String title) throws DataAccessException {
         String sql = "SELECT COUNT(*) FROM documentLine WHERE game = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {

@@ -3,8 +3,6 @@ package controller;
 import dataAccess.ISearchDAO;
 import dataAccess.SearchDAO;
 import exception.DataAccessException;
-import model.City;
-
 import java.util.Date;
 import java.util.List;
 

@@ -1,27 +1,27 @@
 package model;
 
-public class DocumentLine {
+public class OrderLine {
 
     private String game;
-    private String document;
+    private String order;
     private double unitPrice;
     private int quantity;
 
-    public DocumentLine(String game, String document, double unitPrice, int quantity) {
+    public OrderLine(String game, String order, double unitPrice, int quantity) {
         this.game = game;
-        this.document = document;
+        this.order = order;
         this.unitPrice = unitPrice;
         this.quantity = quantity;
     }
 
-    public DocumentLine() {}
+    public OrderLine() {}
 
     public String getGame() {
         return game;
     }
 
-    public String getDocument() {
-        return document;
+    public String getOrder() {
+        return order;
     }
 
     public double getUnitPrice() {
@@ -36,8 +36,8 @@ public class DocumentLine {
         this.game = game;
     }
 
-    public void setDocument(String document) {
-        this.document = document;
+    public void setOrder(String order) {
+        this.order = order;
     }
 
     public void setUnitPrice(double unitPrice) {

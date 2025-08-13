@@ -3,18 +3,19 @@ package model;
 import java.util.Date;
 import java.util.Objects;
 
-public class Document {
+public class Order {
+
     private int id;
     private String reference;
     private Date date;
     private String type;
-    private int person;              // client id
-    private String paymentMethod;    // e.g. "cash"
+    private int person;
+    private String paymentMethod;
     private boolean finalized;
 
-    public Document() {}
+    public Order() {}
 
-    public Document(int id, String reference, Date date, String type, int person, String paymentMethod, boolean finalized) {
+    public Order(int id, String reference, Date date, String type, int person, String paymentMethod, boolean finalized) {
         setId(id);
         setReference(reference);
         setDate(date);
@@ -68,4 +69,5 @@ public class Document {
 
     public boolean isFinalized() { return finalized; }
     public void setFinalized(boolean finalized) { this.finalized = finalized; }
+
 }
