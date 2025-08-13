@@ -6,11 +6,16 @@ import exception.ValidationException;
 import exception.DuplicateEntityException;
 import exception.NotFoundException;
 import model.Game;
+
 import java.util.List;
 
 public class GameController {
 
-    private final GameService service = new GameService();
+    private final GameService service;
+
+    public GameController() {
+        this.service = new GameService();
+    }
 
     public List<Game> getAllGames() throws DataAccessException {
         return service.getAllGames();

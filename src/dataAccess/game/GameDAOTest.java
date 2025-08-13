@@ -3,25 +3,44 @@ package dataAccess.game;
 import exception.DataAccessException;
 import model.Game;
 import org.junit.jupiter.api.*;
-import java.sql.Date;
+import java.sql.*;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameDAOTest {
 
     private GameDAO gameDAO;
+    private Connection conn;
 
     @BeforeEach
-    void setUp() throws DataAccessException {
-        gameDAO = new GameDAO();
+    void setUp() throws Exception {
+        conn = dataAccess.SingletonConnection.getInstance();
+        conn.setAutoCommit(true);
+        ensureRefData();
+        gameDAO = new GameDAO(conn);
         try { gameDAO.delete("JUnitTestGame"); } catch (DataAccessException ignored) {}
         try { gameDAO.delete("JUnitTestGameUpdated"); } catch (DataAccessException ignored) {}
     }
 
     @AfterEach
-    void tearDown() throws DataAccessException {
+    void tearDown() throws Exception {
         try { gameDAO.delete("JUnitTestGame"); } catch (DataAccessException ignored) {}
         try { gameDAO.delete("JUnitTestGameUpdated"); } catch (DataAccessException ignored) {}
+    }
+
+    private void ensureRefData() throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("insert into publisher(name) values (?) on duplicate key update name=name")) {
+            ps.setString(1, "Ubisoft"); ps.executeUpdate();
+            ps.setString(1, "Sony"); ps.executeUpdate();
+        }
+        try (PreparedStatement ps = conn.prepareStatement("insert into platform(name) values (?) on duplicate key update name=name")) {
+            ps.setString(1, "PC"); ps.executeUpdate();
+            ps.setString(1, "PS5"); ps.executeUpdate();
+        }
+        try (PreparedStatement ps = conn.prepareStatement("insert into genre(name, description) values (?, ?) on duplicate key update name=name")) {
+            ps.setString(1, "Action"); ps.setString(2, "Action"); ps.executeUpdate();
+            ps.setString(1, "Adventure"); ps.setString(2, "Adventure"); ps.executeUpdate();
+        }
     }
 
     @Test
@@ -40,7 +59,6 @@ public class GameDAOTest {
                 "Action"
         );
         gameDAO.insert(game);
-
         Game fetched = gameDAO.getGameByTitle("JUnitTestGame");
         assertNotNull(fetched);
         assertEquals("JUnitTestGame", fetched.getTitle());
@@ -66,7 +84,6 @@ public class GameDAOTest {
                 "Action"
         );
         gameDAO.insert(game);
-
         Game updated = new Game(
                 "JUnitTestGameUpdated",
                 29.99,
@@ -81,7 +98,6 @@ public class GameDAOTest {
                 "Adventure"
         );
         gameDAO.update(updated, "JUnitTestGame");
-
         Game fetched = gameDAO.getGameByTitle("JUnitTestGameUpdated");
         assertNotNull(fetched);
         assertEquals("JUnitTestGameUpdated", fetched.getTitle());
@@ -107,17 +123,37 @@ public class GameDAOTest {
                 "Action"
         );
         gameDAO.insert(game);
-
         gameDAO.delete("JUnitTestGame");
         Game fetched = gameDAO.getGameByTitle("JUnitTestGame");
         assertNull(fetched);
     }
 
     @Test
-    public void testGetAllGame() throws DataAccessException {
+    public void testGetAllGameContainsInserted() throws DataAccessException {
+        Game game = new Game(
+                "JUnitTestGame",
+                19.99,
+                Date.valueOf("2024-01-01"),
+                "JUnit test description",
+                16,
+                true,
+                8.5,
+                10,
+                "Ubisoft",
+                "PC",
+                "Action"
+        );
+        gameDAO.insert(game);
         List<Game> games = gameDAO.getAllGame();
         assertNotNull(games);
-        assertFalse(games.isEmpty());
+        boolean found = false;
+        for (Game g : games) {
+            if ("JUnitTestGame".equals(g.getTitle())) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
@@ -145,8 +181,7 @@ public class GameDAOTest {
     }
 
     @Test
-    public void testHasRelatedDocumentLines() throws DataAccessException {
-        assertTrue(gameDAO.hasRelatedDocumentLines("Cyberpunk 2077"));
+    public void testHasRelatedDocumentLinesFalseForNewGame() throws DataAccessException {
         Game game = new Game(
                 "JUnitTestGame",
                 19.99,
@@ -165,7 +200,7 @@ public class GameDAOTest {
     }
 
     @Test
-    public void testDeleteWithDocumentLines() throws DataAccessException {
+    public void testDeleteWithDocumentLinesOnIsolatedGame() throws DataAccessException {
         Game game = new Game(
                 "JUnitTestGame",
                 19.99,

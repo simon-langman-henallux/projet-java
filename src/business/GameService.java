@@ -1,5 +1,6 @@
 package business;
 
+import dataAccess.SingletonConnection;
 import dataAccess.game.GameDAO;
 import dataAccess.game.IGameDAO;
 import exception.DataAccessException;
@@ -7,6 +8,9 @@ import exception.ValidationException;
 import exception.DuplicateEntityException;
 import exception.NotFoundException;
 import model.Game;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class GameService {
@@ -14,7 +18,12 @@ public class GameService {
     private final IGameDAO gameDAO;
 
     public GameService() {
-        this.gameDAO = new GameDAO();
+        try {
+            Connection conn = SingletonConnection.getInstance();
+            this.gameDAO = new GameDAO(conn);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void create(Game game) throws DataAccessException {
