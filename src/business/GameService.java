@@ -3,8 +3,10 @@ package business;
 import dataAccess.game.GameDAO;
 import dataAccess.game.IGameDAO;
 import exception.DataAccessException;
+import exception.ValidationException;
+import exception.DuplicateEntityException;
+import exception.NotFoundException;
 import model.Game;
-
 import java.util.List;
 
 public class GameService {
@@ -18,19 +20,31 @@ public class GameService {
     public void create(Game game) throws DataAccessException {
         validate(game);
         if (gameDAO.getGameByTitle(game.getTitle()) != null) {
-            throw new DataAccessException("A game with this title already exists.");
+            throw new DuplicateEntityException("Game title already exists");
         }
         gameDAO.insert(game);
     }
 
     public void update(Game game, String originalTitle) throws DataAccessException {
         validate(game);
+        if (originalTitle == null || originalTitle.isBlank()) {
+            throw new ValidationException("Title is required");
+        }
+        if (gameDAO.getGameByTitle(originalTitle) == null) {
+            throw new NotFoundException("Game not found");
+        }
+        if (!originalTitle.equals(game.getTitle()) && gameDAO.getGameByTitle(game.getTitle()) != null) {
+            throw new DuplicateEntityException("Game title already exists");
+        }
         gameDAO.update(game, originalTitle);
     }
 
     public void delete(String title) throws DataAccessException {
         if (title == null || title.isBlank()) {
-            throw new DataAccessException("Game title cannot be empty.");
+            throw new ValidationException("Title is required");
+        }
+        if (gameDAO.getGameByTitle(title) == null) {
+            throw new NotFoundException("Game not found");
         }
         gameDAO.delete(title);
     }
@@ -40,36 +54,41 @@ public class GameService {
     }
 
     public Game getGameByTitle(String title) throws DataAccessException {
-        return gameDAO.getGameByTitle(title);
+        if (title == null || title.isBlank()) {
+            throw new ValidationException("Title is required");
+        }
+        Game g = gameDAO.getGameByTitle(title);
+        if (g == null) {
+            throw new NotFoundException("Game not found");
+        }
+        return g;
     }
 
     public boolean hasRelatedDocumentLines(String title) throws DataAccessException {
+        if (title == null || title.isBlank()) {
+            throw new ValidationException("Title is required");
+        }
         return gameDAO.hasRelatedDocumentLines(title);
     }
 
     public void deleteWithDocumentLines(String title) throws DataAccessException {
+        if (title == null || title.isBlank()) {
+            throw new ValidationException("Title is required");
+        }
+        if (gameDAO.getGameByTitle(title) == null) {
+            throw new NotFoundException("Game not found");
+        }
         gameDAO.deleteWithDocumentLines(title);
     }
 
-    private void validate(Game game) throws DataAccessException {
-        if (game.getTitle() == null || game.getTitle().isBlank()) {
-            throw new DataAccessException("Game title is required.");
-        }
-        if (game.getPrice() < 0) {
-            throw new DataAccessException("Price must be positive.");
-        }
-        if (game.getReleaseDate() == null) {
-            throw new DataAccessException("Release date is required.");
-        }
-        if (game.getAgeRestriction() < 0) {
-            throw new DataAccessException("Age restriction must be positive.");
-        }
-        if (game.getPublisher() == null || game.getPublisher().isBlank()) {
-            throw new DataAccessException("Publisher is required.");
-        }
-        if (game.getPlatform() == null || game.getPlatform().isBlank()) {
-            throw new DataAccessException("Platform is required.");
-        }
+    private void validate(Game game) {
+        if (game == null) throw new ValidationException("Game is required");
+        if (game.getTitle() == null || game.getTitle().isBlank()) throw new ValidationException("Title is required");
+        if (game.getPrice() < 0) throw new ValidationException("Price must be positive");
+        if (game.getReleaseDate() == null) throw new ValidationException("Release date is required");
+        if (game.getAgeRestriction() < 0) throw new ValidationException("Age restriction must be positive");
+        if (game.getPublisher() == null || game.getPublisher().isBlank()) throw new ValidationException("Publisher is required");
+        if (game.getPlatform() == null || game.getPlatform().isBlank()) throw new ValidationException("Platform is required");
     }
 
     public List<String> getAllPublisherNames() throws DataAccessException {
@@ -83,5 +102,4 @@ public class GameService {
     public List<String> getAllGenreNames() throws DataAccessException {
         return gameDAO.getAllGenreNames();
     }
-
 }

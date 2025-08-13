@@ -2,6 +2,9 @@ package controller;
 
 import business.GameService;
 import exception.DataAccessException;
+import exception.ValidationException;
+import exception.DuplicateEntityException;
+import exception.NotFoundException;
 import model.Game;
 import java.util.List;
 
@@ -13,15 +16,15 @@ public class GameController {
         return service.getAllGames();
     }
 
-    public void createGame(Game game) throws DataAccessException {
+    public void createGame(Game game) throws DataAccessException, ValidationException, DuplicateEntityException {
         service.create(game);
     }
 
-    public void editGame(Game game, String originalTitle) throws DataAccessException {
+    public void editGame(Game game, String originalTitle) throws DataAccessException, ValidationException, NotFoundException, DuplicateEntityException {
         service.update(game, originalTitle);
     }
 
-    public void removeGame(String title) throws DataAccessException {
+    public void removeGame(String title) throws DataAccessException, ValidationException, NotFoundException {
         service.delete(title);
     }
 
@@ -41,12 +44,11 @@ public class GameController {
         return service.getAllGenreNames();
     }
 
-    public boolean hasRelatedDocumentLines(String title) throws DataAccessException {
+    public boolean hasRelatedDocumentLines(String title) throws DataAccessException, ValidationException {
         return service.hasRelatedDocumentLines(title);
     }
 
-    public void deleteWithDocumentLines(String title) throws DataAccessException {
+    public void deleteWithDocumentLines(String title) throws DataAccessException, ValidationException, NotFoundException {
         service.deleteWithDocumentLines(title);
     }
-
 }
