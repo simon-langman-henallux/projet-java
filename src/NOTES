@@ -6,6 +6,7 @@
 
 A AMELIORER ?
 
+- dans la classe GameDAOTest, les noms des Genres/Platformes/etc...ne sont pas correct.
 - isFinalized es tjs mis à true lors de la création.
 - dans la liste de commandes, afficher le nom du client plutot que son id.
 - les ref des commandes ne sont pas conformes aux insert de la db.
